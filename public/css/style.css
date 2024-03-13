@@ -10,3 +10,10 @@
     border-radius: 4px;
     border: 2px solid #ffffff;
 }
+.ifill {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}

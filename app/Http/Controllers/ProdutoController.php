@@ -16,4 +16,11 @@ class ProdutoController extends Controller
             "titulo" => "David'store",
         ]);
     }
+
+    public function busca(Request $request) {
+        return view("layout", [
+            "produtosRecomendados" => VwProduto::buscar($request->b)->paginate(10),
+            "termo" => "busca",
+        ]);
+    }
 }

@@ -17,4 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProdutoController::class, "index"]);
 
+Route::get('/busca', [ProdutoController::class, "busca"]);
+
+Route::get('/login', [ProdutoController::class, "index"])->middleware("guest")->name("login");
+
+Route::get('/perfil', [UserController::class, "perfil"])->middleware("auth");
+
+Route::get('/favoritos', [UserController::class, "favoritos"])->middleware("auth");
+
+Route::get('/carrinho', [UserController::class, "carrinho"])->middleware("auth");
+
+
+
 // Route::get("/sla", [UserController::class, "teste"]);

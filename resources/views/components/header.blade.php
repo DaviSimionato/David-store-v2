@@ -7,12 +7,13 @@
         </span>
         <a href="/" class="flex align-middle mr-5">
             <img src="{{asset("imagens/svg/logo-no-background.svg")}}" alt="David'store"
-            class="pointer-events-none w-40 ml-6">
+            class="pointer-events-none w-40 ml-5">
         </a>
         <form action="/busca" method="GET" autocomplete="off"
-        class="flex align-middle text-black w-3/5 shadow-lg">
-            <input type="text" name="busca" placeholder="Busque aqui"
-            class="hidden md:block h-4 p-4 mt-1 pl-3 rounded-l outline-none w-full">
+        class="flex align-middle text-black w-3/5 shadow-lg mr-4">
+            <input type="text" name="b" placeholder="Busque aqui"
+            class="hidden md:block h-4 p-4 mt-1 pl-3 rounded-l outline-none w-full 
+            placeholder:text-sm text-sm">
             <button type="submit" 
             class="bg-dsBlue mt-1 px-1 text-white rounded-r">
                 <span title="Pesquisar"
@@ -33,33 +34,40 @@
             </div>
         </div>
         @else
-        <div class='flex align-middle self-center'>
-            <span class='material-symbols-outlined flex align-middle'>account_circle</span>
-            <p class="h-5">
+        <div class='flex align-middle text-sm'>
+            <a href="/perfil">
+                <span class='material-symbols-outlined flex align-middle text-3xl select-none'>
+                    account_circle
+                </span>
+            </a>
+            <p class="flex align-middle self-center select-none">
                 <strong>
-                    <a href='/login'>
+                    <a href='/login' class="flex align-middle mr-1 ml-2 hover:underline">
                         Entrar
                     </a>
                 </strong> 
-                ou 
+                <span class="mr-1">
+                    ou
+                </span>
                 <strong>
-                    <a href='/registrar'>
+                    <a href='/registrar' class="flex align-middle hover:underline">
                         Cadastre-se
                     </a>
                 </strong>
             </p>
         </div>
         @endauth
-        <div class='flex self-center mt-2 ml-4'>
-            <a href='/favoritos'>
+        <div class='flex self-center ml-4'>
+            <a href='/favoritos' class="flex">
                 <span title='Favoritos' 
-                class='material-symbols-outlined fav'>
+                class='material-symbols-outlined fav ifill text-2xl'>
                 favorite
                 </span>
             </a>
-            <a href='/carrinho'>
+            <a href='/carrinho' class="flex">
                 <span title='Carrinho'
-                class='material-symbols-outlined fav {{$carrinhoAlert ?? ""}} fill'>
+                class='material-symbols-outlined fav ifill text-2xl ml-4
+                {{$carrinhoAlert ?? ""}}'>
                 shopping_cart
                 </span>
             </a>

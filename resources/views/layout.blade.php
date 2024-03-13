@@ -29,5 +29,9 @@
         >
 
     @endforeach
+
+    @if ($termo ?? "" == "Busca")
+        {{$produtosRecomendados->links()}}
+    @endif
 </body>
 </html>
