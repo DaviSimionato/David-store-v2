@@ -17,9 +17,22 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function busca(Request $request) {
+    public function handleBusca(Request $request) {
+        $busca = $request->b;
+        if(empty($busca)) {
+            return redirect("/");
+        }
+        return redirect("/busca/{$request->b}");
+    }
+
+    public function buscar($busca) {
         return view("layout", [
-            "produtosRecomendados" => VwProduto::buscar($request->b)->paginate(10),
+            "produtosRecomendados" => VwProduto::query()
+                ->where("nome", "like", "%$busca%")
+                ->orWhere("categoria", "like", "%$busca%")
+                ->orWhere("departamento", "like", "%$busca%")
+                ->orWhere("marca", "like", "%$busca%")
+                ->paginate(10),
             "termo" => "busca",
         ]);
     }

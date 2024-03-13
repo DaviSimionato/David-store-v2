@@ -31,7 +31,9 @@
     @endforeach
 
     @if ($termo ?? "" == "Busca")
-        {{$produtosRecomendados->links()}}
+        <div class="container mb-10">
+            {{$produtosRecomendados->links("pagination::tailwind")}}
+        </div>
     @endif
 </body>
 </html>

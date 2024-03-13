@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProdutoController::class, "index"]);
 
-Route::get('/busca', [ProdutoController::class, "busca"]);
+Route::get('/busca', [ProdutoController::class, "handleBusca"]);
+
+Route::get('/busca/{busca}', [ProdutoController::class, "buscar"]);
 
 Route::get('/login', [ProdutoController::class, "index"])->middleware("guest")->name("login");
 
