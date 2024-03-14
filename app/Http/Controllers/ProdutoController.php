@@ -13,7 +13,6 @@ class ProdutoController extends Controller
         return view("index", [
             "produtos" => VwProduto::all(),
             "produtosRecomendados" => VwProdutosRecomendados::all(),
-            "titulo" => "David'store222",
         ]);
     }
 
@@ -32,7 +31,7 @@ class ProdutoController extends Controller
                 ->orWhere("categoria", "like", "%$busca%")
                 ->orWhere("departamento", "like", "%$busca%")
                 ->orWhere("marca", "like", "%$busca%")
-                ->paginate(5),
+                ->paginate(10),
             "termo" => "busca",
         ]);
     }
