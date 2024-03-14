@@ -14,26 +14,9 @@
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
     <title>{{$titulo ?? "David'store"}}</title>
 </head>
-<body>
+<body class="bg-slate-200">
     <x-header/>
-    @foreach ($produtosRecomendados as $produto)
-        <p>{{ $produto->nome }}</p>
-        <img 
-            src="{{asset("imagens/produtos/{$produto->imagem_produto}")}}" 
-            alt="{{$produto->nome}}"
-            class="w-52 inline"
-        >
-        <img src="{{asset("imagens/marcas/{$produto->imagem_marca}")}}" 
-            alt="{$produto->marca}"
-            class="w-24 inline ml-5"
-        >
-
-    @endforeach
-
-    @if ($termo ?? "" == "Busca")
-        <div class="container mb-10">
-            {{$produtosRecomendados->links("pagination::tailwind")}}
-        </div>
-    @endif
+        {{$slot}}
+    <x-footer/>
 </body>
 </html>

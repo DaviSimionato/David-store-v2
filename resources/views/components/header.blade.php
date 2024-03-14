@@ -11,6 +11,7 @@
         </a>
         <form action="/busca" method="GET" autocomplete="off"
         class="flex align-middle text-black w-3/5 shadow-lg mr-4">
+        @csrf
             <input type="text" name="b" placeholder="Busque aqui"
             class="hidden md:block h-4 p-4 mt-1 pl-3 rounded-l outline-none w-full 
             placeholder:text-sm text-sm">

@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class ProdutoController extends Controller
 {
     public function index() {
-        return view("layout", [
+        return view("index", [
             "produtos" => VwProduto::all(),
             "produtosRecomendados" => VwProdutosRecomendados::all(),
-            "titulo" => "David'store",
+            "titulo" => "David'store222",
         ]);
     }
 
@@ -26,13 +26,13 @@ class ProdutoController extends Controller
     }
 
     public function buscar($busca) {
-        return view("layout", [
+        return view("index", [
             "produtosRecomendados" => VwProduto::query()
                 ->where("nome", "like", "%$busca%")
                 ->orWhere("categoria", "like", "%$busca%")
                 ->orWhere("departamento", "like", "%$busca%")
                 ->orWhere("marca", "like", "%$busca%")
-                ->paginate(10),
+                ->paginate(5),
             "termo" => "busca",
         ]);
     }
