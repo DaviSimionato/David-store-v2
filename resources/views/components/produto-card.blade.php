@@ -1,5 +1,5 @@
 @props(["produto"])
-<div class="bg-white mx-2 rounded-md select-none">
+<div {{$attributes->merge(["class"=>"bg-white mx-2 rounded-md select-none produto"])}}>
     <a href="{{"/produto/$produto->id/" . str_replace(" ", "-", $produto->nome)}}">
         <img src="{{asset("imagens/produtos/{$produto->imagem_produto}")}}" 
         alt="{{$produto->nome}}" class="w-44 mx-auto p-3 pt-4 pointer-events-none">
@@ -14,7 +14,7 @@
             À vista no PIX
         </span>
     </a>
-    <a href="{{"/addcart/$produto->id/$produto->nome"}}" 
+    <a href="{{"/addcart/$produto->id/" . str_replace(" ", "-", $produto->nome)}}" 
     class="bg-ds uppercase block rounded text-white text-center 
     font-bold p-1.5 m-2 mt-5 hover:bg-dsLight">
         Comprar

@@ -9,8 +9,4 @@ class Produto extends Model
 {
     use HasFactory;
 
-    public function removerEspaçosUrl($url) {
-        
-    }
-
 }

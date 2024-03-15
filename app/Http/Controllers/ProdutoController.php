@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
+use App\Models\Marca;
 use App\Models\Produto;
 use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
@@ -13,18 +15,21 @@ class ProdutoController extends Controller
         return view("index", [
             "produtos" => VwProduto::all(),
             "produtosRecomendados" => VwProdutosRecomendados::all(),
+            "marcas" => Marca::all(),
+            "departamentos" => Departamento::all(),
         ]);
     }
 
     public function handleBusca(Request $request) {
-        $busca = $request->b;
-        if(empty($busca)) {
+        if(empty($request->b)) {
             return redirect("/");
         }
-        return redirect("/busca/{$request->b}");
+        $busca = str_replace(" ", "-", $request->b);
+        return redirect("/busca/{$busca}");
     }
 
     public function buscar($busca) {
+        $busca = str_replace("-", " ", $busca);
         return view("index", [
             "produtosRecomendados" => VwProduto::query()
                 ->where("nome", "like", "%$busca%")
@@ -33,6 +38,8 @@ class ProdutoController extends Controller
                 ->orWhere("marca", "like", "%$busca%")
                 ->paginate(10),
             "termo" => "busca",
+            "marcas" => Marca::all(),
+            "departamentos" => Departamento::all(),
         ]);
     }
 }

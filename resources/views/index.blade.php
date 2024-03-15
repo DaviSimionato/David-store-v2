@@ -6,23 +6,43 @@
         </a>
     </div>
     <main class="container bg-gray-100">
-        <div class="p3 bg-ds">
+        <div class="p3 bg-ds mb-3">
             <h2 class="text-xl text-white uppercase p-2 font-bold ml-8">
                 Recomendado
             </h2>
         </div>
 
-        <div class="md:grid grid-cols-5 p-4">
-        @foreach ($produtosRecomendados as $produto)
-            <x-produto-card :produto="$produto"/>
-        @endforeach
+        <div class="recomendados flex items-center select-none">
+            <x-seta-ant/>
+            <div class="md:grid grid-cols-5 p-4 px-0">
+                @foreach ($produtosRecomendados as $produto)
+                    <x-produto-card :produto="$produto"/>
+                @endforeach
+            </div>
+            <x-seta-prox/>
         </div>
 
-        @if ($termo ?? "" == "Busca")
+        <a href="produtos/tv">
+            <img src="{{asset("imagens/svg/bannerRecomend.svg")}}" alt="Banner"
+            class="mx-auto rounded my-3" width="1320">
+        </a>
+
+        <x-section-topic :titulo="'Marcas Recomendadas'" :icone="'thumb_up'" />
+        <div class="marcas flex items-center select-none justify-between">
+            <x-seta-ant/>
+            <div class="md:grid grid-cols-6 p-4 px-0">
+                @foreach ($marcas as $marca)
+                    <x-marca-card :marca="$marca"/>
+                @endforeach
+            </div>
+            <x-seta-prox/>
+        </div>
+        {{-- @if ($termo ?? "" == "Busca")
             <div class="container mb-10">
                 {{$produtosRecomendados->links("pagination::tailwind")}}
             </div>
-        @endif
+        @endif --}}
     </main>
-    
+    <script src="{{asset("js/sliderRec.js")}}"></script>
+    <script src="{{asset("js/sliderMarcas.js")}}"></script>
 </x-layout>

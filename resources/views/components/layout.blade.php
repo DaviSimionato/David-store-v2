@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{{asset("tailwind.config.js")}}"></script>
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
-    <title>{{$titulo ?? "David'store"}}</title>
+    <title>David'store</title>
 </head>
 <body class="bg-slate-200">
     <x-header/>
