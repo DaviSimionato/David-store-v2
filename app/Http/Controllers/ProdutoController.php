@@ -15,6 +15,7 @@ class ProdutoController extends Controller
         return view("index", [
             "produtos" => VwProduto::all(),
             "produtosRecomendados" => VwProdutosRecomendados::all(),
+            "produtosMaisAcessados" => VwProduto::orderBy("acessos")->get(),
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
         ]);
@@ -37,9 +38,10 @@ class ProdutoController extends Controller
                 ->orWhere("departamento", "like", "%$busca%")
                 ->orWhere("marca", "like", "%$busca%")
                 ->paginate(10),
-            "termo" => "busca",
+            //apagar estes depois de fazer a pagina de busca//
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
+            "produtosMaisAcessados" => VwProduto::orderBy("acessos")->get(),
         ]);
     }
 }

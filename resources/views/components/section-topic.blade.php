@@ -1,4 +1,3 @@
-@props(["titulo","icone"])
 <div class="text-dsText uppercase p-2 font-bold ml-8 flex items-center">
     <h2 class="text-xl">
         {{$titulo}}

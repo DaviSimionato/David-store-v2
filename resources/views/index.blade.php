@@ -37,6 +37,26 @@
             </div>
             <x-seta-prox/>
         </div>
+
+        <x-section-topic :titulo="'Departamentos'" :icone="'lists'" />
+        <div class="flex items-center select-none justify-between">
+            <x-seta-ant/>
+            <div class="md:grid grid-cols-6 p-4 px-0">
+                @foreach ($departamentos as $departamento)
+                <div class="marca mx-3 bg-white p-3 pb-6 rounded">
+                    <a href="{{"/produtos" . "/" . str_replace(" ", "-", $departamento->nome)}}">
+                        <h2 class="text-center text-dsText font-bold">
+                            {{$departamento->nome}}
+                        </h2>
+                        <img src="{{asset("imagens/departamentos/$departamento->foto")}}" 
+                        alt="{{$departamento->nome}}" class="mx-auto my-6 w-28 h-12">
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            <x-seta-prox/>
+        </div>
+
         {{-- @if ($termo ?? "" == "Busca")
             <div class="container mb-10">
                 {{$produtosRecomendados->links("pagination::tailwind")}}
