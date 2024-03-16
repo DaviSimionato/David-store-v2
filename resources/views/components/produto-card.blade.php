@@ -1,5 +1,6 @@
 @props(["produto"])
-<div {{$attributes->merge(["class"=>"bg-white mx-2 rounded-md select-none produto"])}}>
+<div {{$attributes->merge(["class"=>"bg-white mx-2 rounded-md select-none produto"])}}
+    title="{{$produto->nome}}">
     <a href="{{"/produto/$produto->id/" . str_replace(" ", "-", $produto->nome)}}">
         <img src="{{asset("imagens/produtos/{$produto->imagem_produto}")}}" 
         alt="{{$produto->nome}}" class="w-44 mx-auto p-3 pt-4 pointer-events-none">

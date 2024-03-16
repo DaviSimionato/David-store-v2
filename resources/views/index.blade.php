@@ -5,6 +5,7 @@
             class="mx-auto">
         </a>
     </div>
+
     <main class="container bg-gray-100">
         <div class="p3 bg-ds mb-3">
             <h2 class="text-xl text-white uppercase p-2 font-bold ml-8">
@@ -40,23 +41,45 @@
 
         <x-section-topic :titulo="'Departamentos'" :icone="'lists'" />
         <div class="flex items-center select-none justify-between">
-            <x-seta-ant/>
-            <div class="md:grid grid-cols-6 p-4 px-0">
+            <div class="md:grid grid-cols-5 p-4 px-0 justify-between mx-auto gap-5">
                 @foreach ($departamentos as $departamento)
-                <div class="marca mx-3 bg-white p-3 pb-6 rounded">
-                    <a href="{{"/produtos" . "/" . str_replace(" ", "-", $departamento->nome)}}">
-                        <h2 class="text-center text-dsText font-bold">
-                            {{$departamento->nome}}
-                        </h2>
-                        <img src="{{asset("imagens/departamentos/$departamento->foto")}}" 
-                        alt="{{$departamento->nome}}" class="mx-auto my-6 w-28 h-12">
-                    </a>
-                </div>
+                    <x-departamento-card :departamento="$departamento"/>
+                @endforeach
+            </div>
+        </div>
+
+        <a href="produtos/Acer">
+            <img src="{{asset("imagens/svg/bannerAcer.svg")}}" alt="Banner Acer"
+            class="mx-auto rounded my-3" width="1320">
+        </a>
+
+        <x-section-topic :titulo="'Produtos Mais Acessados'" :icone="'ads_click'" />
+        <div class="maisAcessados flex items-center select-none">
+            <x-seta-ant/>
+            <div class="md:grid grid-cols-5 p-4 px-0">
+                @foreach ($produtosMaisAcessados as $produto)
+                    <x-produto-card :produto="$produto"/>
                 @endforeach
             </div>
             <x-seta-prox/>
         </div>
 
+        @auth
+            @if (count($produtosVistoRecentemente) > 0)
+
+            <x-section-topic :titulo="'Produtos Vistos Recentemente'" :icone="'history'" />
+            <div class="vistosRecentemente flex items-center select-none">
+                <x-seta-ant/>
+                <div class="md:grid grid-cols-5 p-4 px-0">
+                    @foreach ($produtosVistoRecentemente as $produto)
+                        <x-produto-card :produto="$produto"/>
+                    @endforeach
+                </div>
+                <x-seta-prox/>
+            </div>
+            
+            @endif
+        @endauth
         {{-- @if ($termo ?? "" == "Busca")
             <div class="container mb-10">
                 {{$produtosRecomendados->links("pagination::tailwind")}}
@@ -65,4 +88,5 @@
     </main>
     <script src="{{asset("js/sliderRec.js")}}"></script>
     <script src="{{asset("js/sliderMarcas.js")}}"></script>
+    <script src="{{asset("js/sliderMA.js")}}"></script>
 </x-layout>

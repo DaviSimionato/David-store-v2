@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VwHistorico extends Model
 {
     use HasFactory;
+
+    protected $table = "vwHistoricos";
 }

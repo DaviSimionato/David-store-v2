@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use App\Models\Marca;
 use App\Models\Produto;
+use App\Models\VwHistorico;
 use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
 use Illuminate\Http\Request;
@@ -12,12 +13,18 @@ use Illuminate\Http\Request;
 class ProdutoController extends Controller
 {
     public function index() {
+        if(auth()) {
+            $prodsRecentes = VwHistorico::where("user_id", auth()->id())
+            ->take(25)
+            ->get();
+        }
         return view("index", [
             "produtos" => VwProduto::all(),
             "produtosRecomendados" => VwProdutosRecomendados::all(),
-            "produtosMaisAcessados" => VwProduto::orderBy("acessos")->get(),
+            "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
+            "produtosVistoRecentemente" => $prodsRecentes,
         ]);
     }
 
