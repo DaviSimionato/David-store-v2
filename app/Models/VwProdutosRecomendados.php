@@ -10,4 +10,5 @@ class VwProdutosRecomendados extends Model
     use HasFactory;
 
     protected $table = "vwProdutosRecomendados";
+    
 }

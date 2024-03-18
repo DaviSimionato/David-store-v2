@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProdutoController::class, "index"]);
 
+Route::get('/produto/{produto}/{nome}', [ProdutoController::class, "show"]);
+
 Route::get('/busca', [ProdutoController::class, "handleBusca"]);
 
 Route::get('/busca/{busca}', [ProdutoController::class, "buscar"]);

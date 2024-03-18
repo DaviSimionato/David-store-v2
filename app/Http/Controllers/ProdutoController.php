@@ -8,6 +8,7 @@ use App\Models\Produto;
 use App\Models\VwHistorico;
 use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
+use App\Models\VwReview;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -25,6 +26,23 @@ class ProdutoController extends Controller
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
             "produtosVistoRecentemente" => $prodsRecentes,
+        ]);
+    }
+
+    public function show(Produto $produto) {
+        $produto->acessos = intval($produto->acessos) + 1;
+        $produto->save();
+        if(auth()) {
+            $prodsRecentes = VwHistorico::where("user_id", auth()->id())
+            ->take(25)
+            ->get();
+        }
+        return view("show",[
+            "produto" => VwProduto::find($produto->id),
+            "produtosSimilares" => VwProduto::where("categoria_id", $produto->categoria_id)->get(),
+            "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
+            "produtosVistoRecentemente" => $prodsRecentes,
+            "reviews" => VwReview::where("produto_id", $produto->id)->get(),
         ]);
     }
 
@@ -48,7 +66,9 @@ class ProdutoController extends Controller
             //apagar estes depois de fazer a pagina de busca//
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
-            "produtosMaisAcessados" => VwProduto::orderBy("acessos")->get(),
+            "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")
+                ->take(25)
+                ->get(),
         ]);
     }
 }

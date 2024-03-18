@@ -10,4 +10,5 @@ class VwHistorico extends Model
     use HasFactory;
 
     protected $table = "vwHistoricos";
+    
 }
