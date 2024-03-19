@@ -2,7 +2,7 @@ const produtosVR = document.querySelectorAll(".vistosRecentemente .produto");
 const setaProxVR = document.querySelector(".vistosRecentemente .prox");
 const setaAntVR= document.querySelector(".vistosRecentemente .ant");
 let minVR = 0;
-let maxxVR = 5;
+let maxVR = 5;
 function changeProdsVR() {
     setSetasVR();
     produtosVR.forEach((prod)=> {
