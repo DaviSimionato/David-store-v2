@@ -10,6 +10,7 @@ tailwind.config = {
         dsLight: "#EB8442",
         dsBlue: "#0079E9",
         dsText: "#42464D",
+        dsTextLight: "#7F858D",
       },
 
       fontFamily: {

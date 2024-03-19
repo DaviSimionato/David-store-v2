@@ -11,7 +11,7 @@
         <p class="text-xl text-ds font-bold px-2 mt-2">
             {{$produto->precoAvista}}
         </p>
-        <span class="text-sm px-2 text-dsText ">
+        <span class="text-sm px-2 text-dsText font-normal">
             À vista no PIX
         </span>
     </a>
