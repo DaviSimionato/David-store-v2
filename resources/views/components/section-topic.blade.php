@@ -1,4 +1,4 @@
-<div class="text-dsText uppercase p-2 font-bold ml-8 flex items-center">
+<div {{$attributes->merge(["class"=>"text-dsText uppercase p-2 font-bold ml-8 flex items-center"])}}>
     <h2 class="text-xl">
         {{$titulo}}
     </h2>

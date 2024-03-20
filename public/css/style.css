@@ -20,8 +20,11 @@ span {
     'GRAD' 0,
     'opsz' 24;
 }
+.fechado {
+    display: none;
+}
 .fadeIn {
-    animation: fadeIn linear .3s;
+    animation: fadeIn linear .2s;
 }
 @keyframes fadeIn {
     from {

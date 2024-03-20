@@ -50,7 +50,7 @@ window.addEventListener("resize", ()=> {
     }
     if(document.querySelector("body").getClientRects()[0].width > 1200) {
         minMarca = 0;
-        maxMarca = 5;
+        maxMarca = 6;
         changeProdsMarca();
     }
 });

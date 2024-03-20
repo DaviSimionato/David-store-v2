@@ -86,8 +86,11 @@
             </div>
         @endif --}}
     </main>
-    <script src="{{asset("js/sliderRec.js")}}"></script>
-    <script src="{{asset("js/sliderMarcas.js")}}"></script>
-    <script src="{{asset("js/sliderMA.js")}}"></script>
-    <script src="{{asset("js/sliderVR.js")}}"></script>
 </x-layout>
+
+<script src="{{asset("js/sliderRec.js")}}"></script>
+<script src="{{asset("js/sliderMarcas.js")}}"></script>
+<script src="{{asset("js/sliderMA.js")}}"></script>
+@auth
+<script src="{{asset("js/sliderVR.js")}}"></script>
+@endauth

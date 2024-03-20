@@ -4,13 +4,13 @@
             <p class="font-bold text-dsText">
                 Você está em: 
             </p>
-            <a href="{{"/produtos/$produto->departamento"}}" class="ml-1 text-sm">
+            <a href="{{"/produtos/$produto->departamento"}}" class="ml-1 text-sm hover:underline">
                 {{$produto->departamento}}
             </a>
             <span class="ml-1 text-xl mt-0.5 font-thin">
                 >
             </span>
-            <a href="{{"/produtos/$produto->categoria"}}" class="ml-1 text-sm">
+            <a href="{{"/produtos/$produto->categoria"}}" class="ml-1 text-sm hover:underline">
                 {{$produto->categoria}}
             </a>
             <span class="ml-1 text-xl mt-0.5 font-thin">
@@ -109,7 +109,7 @@
             </div>
 
             <div class="flex flex-col ml-12">
-                <div class="flex mt-32">
+                <div class="flex mt-32 mb-12">
                     <div class="">
                         <p class="text-ds font-bold" style="font-size: 40px">
                             {{$produto->precoAvista}}
@@ -162,11 +162,77 @@
         </div>
     </main>
 
-    <section class="container bg-white p-5 mt-3 rounded">
-        
+    <section class="container bg-white p-5 mt-4 rounded">
+        <div class="flex justify-between py-3 my-2 hover:cursor-pointer select-none desc">
+            <x-section-topic :titulo="'Descrição do produto'" :icone="'description'"
+            style="margin: 0px" class=""/>
+            <span style="font-size: 35px;margin-right: 45px" 
+            class="material-symbols-outlined text-ds seta">
+                expand_less
+            </span>
+        </div>
+
+        <div class="descText ml-2 text-dsText text-sm descritivo">
+            {!! $produto->descritivo !!}
+        </div>
     </section>
-    <script src="{{asset("js/sliderMA.js")}}"></script>
-    <script src="{{asset("js/sliderSim.js")}}"></script>
-    <script src="{{asset("js/sliderVR.js")}}"></script>
-    <script>document.querySelector("body").style.background = "#F2F2F2"</script>
+
+    <section class="container bg-white p-5 mt-4 rounded">
+        <div class="flex justify-between py-3 my-2 hover:cursor-pointer select-none infoTec">
+            <x-section-topic :titulo="'Informações Técnicas'" :icone="'info'"
+            style="margin: 0px" class=""/>
+            <span style="font-size: 35px;margin-right: 45px" 
+            class="material-symbols-outlined text-ds seta">
+                expand_less
+            </span>
+        </div>
+
+        <div class="descText ml-2 text-dsText text-sm infoTecnica">
+            {!! $produto->info_tecnica !!}
+        </div>
+    </section>
+
+    <section class="container bg-white p-5 mt-4 rounded">
+        <x-section-topic :titulo="'Produtos Mais Acessados'" :icone="'ads_click'" 
+        style="margin: 0px"/>
+            <div class="maisAcessados flex items-center select-none">
+                <x-seta-ant/>
+                <div class="md:grid grid-cols-5 p-4 px-0">
+                    @foreach ($produtosMaisAcessados as $prd)
+                        <x-produto-card :produto="$prd"/>
+                    @endforeach
+                </div>
+                <x-seta-prox/>
+            </div>
+    </section>
+
+    @auth
+    <section class="container bg-white p-5 mt-4 rounded">
+        @if (count($produtosVistoRecentemente) > 0)
+
+            <x-section-topic :titulo="'Produtos Vistos Recentemente'" :icone="'history'" />
+            <div class="vistosRecentemente flex items-center select-none">
+                <x-seta-ant/>
+                <div class="md:grid grid-cols-5 p-4 px-0">
+                    @foreach ($produtosVistoRecentemente as $prd)
+                        <x-produto-card :produto="$prd"/>
+                    @endforeach
+                </div>
+                <x-seta-prox/>
+            </div>
+            
+            @endif
+    </section>
+    @endauth
 </x-layout>
+
+<script>
+    document.querySelector("body").style.background = "#F2F2F2"
+    document.title = "{{$produto->nome}}" 
+</script>
+<script src="{{asset("js/produto.js")}}"></script>
+<script src="{{asset("js/sliderMA.js")}}"></script>
+<script src="{{asset("js/sliderSim.js")}}"></script>
+@auth
+<script src="{{asset("js/sliderVR.js")}}"></script>
+@endauth
