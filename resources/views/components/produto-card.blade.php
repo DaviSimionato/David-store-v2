@@ -3,7 +3,7 @@
     title="{{$produto->nome}}">
     <a href="{{"/produto/$produto->id/" . str_replace(" ", "-", $produto->nome)}}">
         <img src="{{asset("imagens/produtos/{$produto->imagem_produto}")}}" 
-        alt="{{$produto->nome}}" class="w-44 mx-auto p-3 pt-4 pointer-events-none">
+        alt="{{$produto->nome}}" class="w-44 h-48 mx-auto p-3 pt-4 pointer-events-none">
         <p class="text-dsText font-semibold text-base line-clamp-3 px-2 mt-3 leading-tight
         h-14">
             {{$produto->nome}}

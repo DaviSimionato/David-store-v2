@@ -42,7 +42,7 @@ class ProdutoController extends Controller
             "produtosSimilares" => VwProduto::where("categoria_id", $produto->categoria_id)->get(),
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "produtosVistoRecentemente" => $prodsRecentes,
-            "reviews" => VwReview::where("produto_id", $produto->id)->get(),
+            "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
         ]);
     }
 

@@ -166,10 +166,15 @@
         <div class="flex justify-between py-3 my-2 hover:cursor-pointer select-none desc">
             <x-section-topic :titulo="'Descrição do produto'" :icone="'description'"
             style="margin: 0px" class=""/>
-            <span style="font-size: 35px;margin-right: 45px" 
-            class="material-symbols-outlined text-ds seta">
-                expand_less
-            </span>
+            <div class="flex items-center">
+                <p class="font-bold text-ds opacity-95 mr-2 uppercase text-sm mostrar">
+                    Mostrar menos
+                </p>
+                <span style="font-size: 35px;margin-right: 45px" 
+                class="material-symbols-outlined text-ds seta">
+                    expand_less
+                </span>
+            </div>
         </div>
 
         <div class="descText ml-2 text-dsText text-sm descritivo">
@@ -181,14 +186,45 @@
         <div class="flex justify-between py-3 my-2 hover:cursor-pointer select-none infoTec">
             <x-section-topic :titulo="'Informações Técnicas'" :icone="'info'"
             style="margin: 0px" class=""/>
-            <span style="font-size: 35px;margin-right: 45px" 
-            class="material-symbols-outlined text-ds seta">
-                expand_less
-            </span>
+            <div class="flex items-center">
+                <p class="font-bold text-ds opacity-95 mr-2 uppercase text-sm mostrar">
+                    Mostrar menos
+                </p>
+                <span style="font-size: 35px;margin-right: 45px" 
+                class="material-symbols-outlined text-ds seta">
+                    expand_less
+                </span>
+            </div>
         </div>
 
         <div class="descText ml-2 text-dsText text-sm infoTecnica">
             {!! $produto->info_tecnica !!}
+        </div>
+    </section>
+
+    <section class="container bg-white p-5 mt-4 rounded">
+        <x-section-topic :titulo="'Avaliações'" :icone="'reviews'"
+        style="margin-left: 0px"/>
+        @if (intval($produto->qtd_reviews == 0))
+            <p class="text-lg text-dsText text-center opacity-50 font-bold my-8">
+                Nenhuma avaliação até agora!
+            </p>
+        @endif
+        @foreach ($reviews as $review)
+            <x-review :review="$review"/>
+        @endforeach
+        <div class="flex items-center justify-center text-white uppercase font-bold
+        text-sm">
+            @if (intval($produto->qtd_reviews > 5))
+                <a href="{{"/reviews/$produto->id/" . str_replace(" ", "-", $produto->nome)}}"
+                class="bg-ds p-1.5 rounded mx-2">
+                    Ver mais avaliações
+                </a>
+            @endif
+            <a href="{{"/escreverReview/$produto->id/" . str_replace(" ", "-", $produto->nome)}}"
+            class="bg-ds p-1.5 rounded mx-2">
+                Escrever review
+            </a>
         </div>
     </section>
 

@@ -5,7 +5,7 @@
         <div title="{{$produto->nome}}" class="flex mx-4
         flex-col items-center">
             <img src="{{asset("imagens/produtos/$produto->imagem_produto")}}" 
-            alt="{{$produto->nome}}" class="w-24 my-1">
+            alt="{{$produto->nome}}" class="w-24 h-24 my-1">
             <p class="font-bold text-ds">
                 {{$produto->precoAvista}}
             </p>
