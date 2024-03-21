@@ -80,11 +80,6 @@
             
             @endif
         @endauth
-        {{-- @if ($termo ?? "" == "Busca")
-            <div class="container mb-10">
-                {{$produtosRecomendados->links("pagination::tailwind")}}
-            </div>
-        @endif --}}
     </main>
 </x-layout>
 

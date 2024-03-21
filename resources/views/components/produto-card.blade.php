@@ -14,6 +14,7 @@
         <span class="text-sm px-2 text-dsText font-normal">
             À vista no PIX
         </span>
+        <p class="hidden preco">{{$produto->precoAvistaVlr}}</p>
     </a>
     <a href="{{"/addcart/$produto->id/" . str_replace(" ", "-", $produto->nome)}}" 
     class="bg-ds uppercase block rounded text-white text-center 

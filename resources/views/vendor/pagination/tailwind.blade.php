@@ -22,7 +22,7 @@
             @endif
         </div>
 
-        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
+        <div class="hidden sm:flex-1 sm:flex sm:items-center mt-4">
             <div>
                 <p class="text-sm text-gray-700 leading-5">
                     {!! __('Mostrando de') !!}
@@ -40,7 +40,7 @@
             </div>
 
             <div>
-                <span class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md ml-32">
+                <span class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md ml-28">
                     {{-- Previous Page Link --}}
                     @if ($paginator->onFirstPage())
                         <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">

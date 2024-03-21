@@ -56,19 +56,16 @@ class ProdutoController extends Controller
 
     public function buscar($busca) {
         $busca = str_replace("-", " ", $busca);
-        return view("index", [
-            "produtosRecomendados" => VwProduto::query()
+        return view("busca", [
+            "busca" => $busca,
+            "produtos" => VwProduto::query()
                 ->where("nome", "like", "%$busca%")
                 ->orWhere("categoria", "like", "%$busca%")
                 ->orWhere("departamento", "like", "%$busca%")
                 ->orWhere("marca", "like", "%$busca%")
-                ->paginate(10),
-            //apagar estes depois de fazer a pagina de busca//
+                ->paginate(12),
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
-            "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")
-                ->take(25)
-                ->get(),
         ]);
     }
 }
