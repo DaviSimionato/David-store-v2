@@ -1,7 +1,7 @@
 <header class="bg-ds w-full text-white">
     <div class="container max-w-cds py-6 flex align-middle justify-between">
         <span 
-        class="material-symbols-outlined menuLateral select-none 
+        class="material-symbols-outlined abrirMenu select-none 
         text-3xl hover:cursor-pointer">
             menu
         </span>

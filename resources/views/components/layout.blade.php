@@ -16,6 +16,7 @@
 </head>
 <body class="bg-slate-200">
     <x-header/>
+    <x-menu-lateral/>
         {{$slot}}
     <x-footer/>
 </body>
