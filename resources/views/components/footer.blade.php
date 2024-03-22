@@ -1,4 +1,4 @@
-<footer class="w-full mt-10" style="background-color: #004D8E">
+<footer {{ $attributes->merge(['class' => "w-full mt-10"]) }} style="background-color: #004D8E">
     <div class="container text-white text-center p-3">
         <p class="text-base mb-3">
             Davi Simionato - {{date("Y")}}
