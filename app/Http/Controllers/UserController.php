@@ -23,4 +23,12 @@ class UserController extends Controller
         User::create($data);
         return redirect("/");
     }
+
+    public function login() {
+        return view("login");
+    }
+
+    public function registrar() {
+        return view("registrar");
+    }
 }

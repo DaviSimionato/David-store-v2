@@ -25,7 +25,9 @@ Route::get('/busca/{busca}', [ProdutoController::class, "buscar"]);
 
 Route::get('/produtos/{busca}', [ProdutoController::class, "buscar"]);
 
-Route::get('/login', [ProdutoController::class, "index"])->middleware("guest")->name("login");
+Route::get('/login', [UserController::class, "login"])->middleware("guest")->name("login");
+
+Route::get('/registrar', [UserController::class, "registrar"])->middleware("guest");
 
 Route::get('/perfil', [UserController::class, "perfil"])->middleware("auth");
 
