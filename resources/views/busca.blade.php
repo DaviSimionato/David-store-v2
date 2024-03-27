@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container rounded mt-4">
         <h2 class="text-dsText text-xl font-bold">
-            Resultados da pesquisa: {{$busca}}
+            Mostrando resultados para: {{$busca}}
         </h2>
         <hr class="my-2 border-gray-400">
     </div>
