@@ -12,13 +12,14 @@
                 bg-white ml-2 -mb-3 px-1" style="color:#63686e">
                     Email
                 </label>
-                <input type="text" placeholder="Insira seu e-mail" 
+                <input type="email" placeholder="Insira seu e-mail" 
+                value="{{old("email")}}" name="email"
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
                 <label for="senha" class="mt-5 font-semibold text-dsText w-fit z-10
                 bg-white ml-2 -mb-3 px-1" style="color:#63686e">
                     Senha
                 </label>
-                <input type="password" placeholder="Insira sua senha" 
+                <input type="password" placeholder="Insira sua senha" name="senha"
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
                 <button type="submit" class="flex items-center justify-center mt-4
                 p-2 bg-ds font-bold uppercase text-white rounded">
