@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
     <title>David'store</title>
 </head>
-<body class="bg-slate-200">
+<body>
     <x-header/>
     <x-menu-lateral/>
         {{$slot}}
+    <x-mensagem/>
     <x-footer/>
 </body>
 </html>

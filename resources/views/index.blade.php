@@ -1,4 +1,7 @@
 <x-layout>
+    <script>
+        document.querySelector("body").classList.add("bg-slate-200");
+    </script>
     <div class="w-full mb-10" style="background-color: #0035E7">
         <a href="/produtos/tv">
             <img src="{{asset("imagens/svg/bannerIndex.svg")}}" alt="banner"

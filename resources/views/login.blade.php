@@ -15,12 +15,18 @@
                 <input type="email" placeholder="Insira seu e-mail" 
                 value="{{old("email")}}" name="email"
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
+                @error("email")
+                    <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
+                @enderror
                 <label for="senha" class="mt-5 font-semibold text-dsText w-fit z-10
                 bg-white ml-2 -mb-3 px-1" style="color:#63686e">
                     Senha
                 </label>
                 <input type="password" placeholder="Insira sua senha" name="senha"
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
+                @error("senha")
+                    <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
+                @enderror
                 <button type="submit" class="flex items-center justify-center mt-4
                 p-2 bg-ds font-bold uppercase text-white rounded">
                     <span class="material-symbols-outlined">login</span>

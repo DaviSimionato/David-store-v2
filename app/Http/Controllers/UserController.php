@@ -28,6 +28,26 @@ class UserController extends Controller
         return view("login");
     }
 
+    public function entrar() {
+        $dadosLogin = request()->validate([
+            "email" => "required|email",
+            "senha" => "required"
+        ],[
+            "email.email" => "Formato de email inválido",
+            "email.required" => "Insira todos os dados",
+            "senha.required" => "Insira todos os dados",
+        ]);
+        if(auth()->attempt($dadosLogin)) {
+            request()->session()->regenerate();
+            return redirect("/")->with("mensagem","Login realizado com sucesso!");
+        }else {
+            return back()->withErrors([
+                "email" => "Dados inválidos",
+                "senha" => "Dados inválidos"
+            ]);
+        }
+    }
+
     public function registrar() {
         return view("registrar");
     }

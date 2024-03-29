@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
     <title>David'store</title>
 </head>
-<body class="bg-slate-200">
+<body>
     <x-header/>
     <div class="font-bold text-dsText text-4xl absolute top-1/4 w-full text-center">
         <h1>Página não encontrada!</h1>
