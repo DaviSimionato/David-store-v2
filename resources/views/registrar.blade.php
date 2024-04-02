@@ -63,7 +63,7 @@
                 <input type="text" placeholder="Insira seu telefone (somente números)" 
                 name="telefone"
                 value="{{old("telefone")}}"
-                class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
+                class="border border-gray-500 rounded py-2.5 pl-3 outline-none cadTel">
                 @error("telefone")
                     <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
                 @enderror
@@ -75,30 +75,30 @@
                 <input type="text" placeholder="Insira seu cpf (somente números)" 
                 name="cpf"
                 value="{{old("cpf")}}"
-                class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
+                class="border border-gray-500 rounded py-2.5 pl-3 outline-none cadCPF">
                 @error("cpf")
                     <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
                 @enderror
 
-                <label for="senha" class="mt-5 font-semibold text-dsText w-fit z-10
+                <label for="password" class="mt-5 font-semibold text-dsText w-fit z-10
                 bg-white ml-2 -mb-3 px-1" style="color:#63686e">
                     Senha
                 </label>
                 <input type="password" placeholder="Insira sua senha"
-                name="senha" 
+                name="password" 
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
-                @error("senha")
+                @error("password")
                     <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
                 @enderror
 
-                <label for="senha_confirmation" class="mt-5 font-semibold text-dsText w-fit z-10
+                <label for="password_confirmation" class="mt-5 font-semibold text-dsText w-fit z-10
                 bg-white ml-2 -mb-3 px-1" style="color:#63686e">
                     Confirme sua senha
                 </label>
                 <input type="password" placeholder="Confirme sua senha" 
-                name="senha_confirmation" 
+                name="password_confirmation" 
                 class="border border-gray-500 rounded py-2.5 pl-3 outline-none">
-                @error("senha_confirmation")
+                @error("password_confirmation")
                     <p class="text-red-700 text-xs mt-1 ml-2 font-semibold">{{$message}}</p>
                 @enderror
 
@@ -147,3 +147,4 @@
     document.querySelector("body").style.background = "white";
     document.title = "Cadastre-se";
 </script>
+<script src="{{asset("js/dadosRegistro.js")}}"></script>

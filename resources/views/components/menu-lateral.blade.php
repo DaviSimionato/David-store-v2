@@ -11,8 +11,8 @@
         @auth
             <div class="flex justify-between items-center text-white font-bold
             text-xl mt-5">
-                <div class="flex">
-                    <h2 class="mr-1">
+                <div class="flex line-clamp-1">
+                    <h2 class="mr-1 line-clamp-1">
                         Olá. {{auth()->user()->nome_usuario}}
                     </h2>
                 </div>

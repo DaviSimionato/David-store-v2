@@ -28,4 +28,6 @@ Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
+Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
+
 // Route::get("/sla", [UserController::class, "teste"]);

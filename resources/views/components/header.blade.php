@@ -25,13 +25,14 @@
         </form>
 
         @auth
-        <div class='flex'>
-            <span class='material-symbols-outlined'>account_circle</span>
-            <div class='sessionInfo'>
-                <p>
-                    Olá, {{auth()->user()->nome_usuario}}
+        <div class='flex items-center'>
+            <span class='material-symbols-outlined mr-2 text-3xl'>account_circle</span>
+            <div class="text-sm">
+                <p class="select-none">
+                    <strong><a href='/conta' class="hover:underline">Minha conta</a></strong> 
+                    | 
+                    <strong><a href='/sair' class="hover:underline">Sair</a></strong>
                 </p>
-                <p><strong><a href='/conta'>MINHA CONTA</a></strong> | <strong><a href='/sair'>SAIR</a></strong></p>
             </div>
         </div>
         @else

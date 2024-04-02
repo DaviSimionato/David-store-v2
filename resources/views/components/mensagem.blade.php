@@ -1,8 +1,8 @@
-@if (session()->has("menssagem"))
-    <div class="fixed bottom-2 tranform bg-ds text-white px-48 py-3 left-1/2
-    translate-x-1/2">
-        <p>
-            {{session("menssagem")}}
+@if (session()->has("mensagem"))
+    <div class="fixed bottom-2 tranform bg-dsBlue text-white px-48 py-3 right-0
+     rounded select-none mensagem">
+        <p class="text-center text-lg font-bold">
+            {{session("mensagem")}} 
         </p>
     </div>
 @endif
