@@ -24,6 +24,8 @@ Route::get("/favoritos", [UserController::class, "favoritos"])->middleware("auth
 
 Route::get("/carrinho", [UserController::class, "carrinho"])->middleware("auth");
 
+Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
+
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 // Route::get("/sla", [UserController::class, "teste"]);

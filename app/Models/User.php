@@ -15,22 +15,22 @@ class User extends Authenticatable
     public $timestamps = false;
     
     protected $fillable = [
+        "nome_usuario",
+        "email",
         "nome",
         "sobrenome",
         "telefone",
-        "nome_usuario",
-        "email",
-        "senha",
+        "cpf",
         "pergunta_secreta",
         "resposta_secreta",
-        "cpf",
+        "password",
     ];
     protected $hidden = [
-        "senha",
+        "password",
         "resposta_secreta"
     ];
     protected $casts = [
-        "senha" => "hashed",
+        "password" => "hashed",
         "resposta_secreat" => "hashed",
     ];
     

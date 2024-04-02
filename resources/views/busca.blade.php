@@ -5,7 +5,7 @@
         </h2>
         <hr class="my-2 border-gray-400">
     </div>
-    <div class="container flex mt-2 gap-6 select-none">
+    <div class="container flex mt-4 gap-6 select-none">
         <div class="w-1/5 bg-white p-4 rounded h-screen text-dsText">
             <div class="min">
                 <p>Preço mínimo:</p>

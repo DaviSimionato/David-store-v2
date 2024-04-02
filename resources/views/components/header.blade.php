@@ -29,9 +29,9 @@
             <span class='material-symbols-outlined'>account_circle</span>
             <div class='sessionInfo'>
                 <p>
-                    Olá, {$_SESSION['user']->nomeUsuario}
+                    Olá, {{auth()->user()->nome_usuario}}
                 </p>
-                <p><strong><a href='minhaConta.php'>MINHA CONTA</a></strong> | <strong><a href='includes/sair.php'>SAIR</a></strong></p>
+                <p><strong><a href='/conta'>MINHA CONTA</a></strong> | <strong><a href='/sair'>SAIR</a></strong></p>
             </div>
         </div>
         @else

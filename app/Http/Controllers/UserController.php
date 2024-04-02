@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
         "telefone" => "(14) 99846-5258",
         "nome_usuario" => "Davi.s",
         "email" => "davi@gmail.com",
-        "senha" => bcrypt("123456"),
+        "senha" => bcrypt("123"),
         "pergunta_secreta" => "teste",
         "resposta_secreta" => bcrypt("teste123"),
         "cpf" => "12345678901",
@@ -31,11 +32,11 @@ class UserController extends Controller
     public function entrar() {
         $dadosLogin = request()->validate([
             "email" => "required|email",
-            "senha" => "required"
+            "password" => "required"
         ],[
             "email.email" => "Formato de email inválido",
             "email.required" => "Insira todos os dados",
-            "senha.required" => "Insira todos os dados",
+            "password.required" => "Insira todos os dados",
         ]);
         if(auth()->attempt($dadosLogin)) {
             request()->session()->regenerate();
@@ -43,12 +44,19 @@ class UserController extends Controller
         }else {
             return back()->withErrors([
                 "email" => "Dados inválidos",
-                "senha" => "Dados inválidos"
+                "password" => "Dados inválidos"
             ]);
         }
     }
 
     public function registrar() {
         return view("registrar");
+    }
+
+    public function sair() {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect("/")->with("menssagem", "User logged out");
     }
 }
