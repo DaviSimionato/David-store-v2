@@ -10,6 +10,7 @@ use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
 use App\Models\VwReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -33,6 +34,7 @@ class ProdutoController extends Controller
         $produto->acessos = intval($produto->acessos) + 1;
         $produto->save();
         if(auth()) {
+            DB::query("CALL proc_historico(?,?)", array(auth()->id(), $produto->id));
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
             ->take(25)
             ->get();
