@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Historico;
 use App\Models\Marca;
 use App\Models\Produto;
 use App\Models\VwHistorico;
@@ -34,8 +35,9 @@ class ProdutoController extends Controller
         $produto->acessos = intval($produto->acessos) + 1;
         $produto->save();
         if(auth()) {
-            DB::query("CALL proc_historico(?,?)", array(auth()->id(), $produto->id));
+            self::registrarHistorico(auth()->id(),$produto->id);
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
+            ->orderBy('id', 'desc')
             ->take(25)
             ->get();
         }
@@ -69,5 +71,15 @@ class ProdutoController extends Controller
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
         ]);
+    }
+
+    public function registrarHistorico($u_id, $p_id) {
+        $historico = Historico::where("user_id", $u_id)->where("produto_id",$p_id)->get();
+        if($historico->isEmpty()) {
+            Historico::create(["user_id" => $u_id,"produto_id" => $p_id]);
+        }else {
+            Historico::destroy($historico[0]->id);
+            Historico::create(["user_id" => $u_id,"produto_id" => $p_id]);
+        }
     }
 }
