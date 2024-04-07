@@ -11,13 +11,13 @@ use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
 use App\Models\VwReview;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
     public function index() {
-        if(auth()) {
+        if(!is_null(auth()->user())) {
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
+            ->orderByDesc('historico_id')
             ->take(25)
             ->get();
         }
@@ -27,17 +27,17 @@ class ProdutoController extends Controller
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
-            "produtosVistoRecentemente" => $prodsRecentes,
+            "produtosVistoRecentemente" => $prodsRecentes ?? array(),
         ]);
     }
 
     public function show(Produto $produto) {
         $produto->acessos = intval($produto->acessos) + 1;
         $produto->save();
-        if(auth()) {
+        if(!is_null(auth()->user())) {
             self::registrarHistorico(auth()->id(),$produto->id);
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
-            ->orderBy('id', 'desc')
+            ->orderByDesc('historico_id')
             ->take(25)
             ->get();
         }
@@ -45,7 +45,7 @@ class ProdutoController extends Controller
             "produto" => VwProduto::find($produto->id),
             "produtosSimilares" => VwProduto::where("categoria_id", $produto->categoria_id)->get(),
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
-            "produtosVistoRecentemente" => $prodsRecentes,
+            "produtosVistoRecentemente" => $prodsRecentes ?? array(),
             "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
         ]);
     }
@@ -70,6 +70,38 @@ class ProdutoController extends Controller
                 ->paginate(12),
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
+            "ordenador" => "Nada",
+        ]);
+    }
+
+    public function buscarOrdenado($busca,$ordenador) {
+        $busca = str_replace("-", " ", $busca);
+        switch($ordenador) {
+            case "Menor-Preço":
+                $order = ["precoAvistaVlr", "asc"];
+                break;
+            case "Maior-Preço":
+                $order = ["precoAvistaVlr", "desc"];
+                break;
+            case "Acessos":
+                $order = ["acessos", "desc"];
+                break;
+            default: 
+                $order = ["id", "asc"];
+                $ordenador = "Nada";
+        }
+        return view("busca", [
+            "busca" => $busca,
+            "produtos" => VwProduto::query()
+                ->where("nome", "like", "%$busca%")
+                ->orWhere("categoria", "like", "%$busca%")
+                ->orWhere("departamento", "like", "%$busca%")
+                ->orWhere("marca", "like", "%$busca%")
+                ->orderBy($order[0], $order[1])
+                ->paginate(12),
+            "marcas" => Marca::all(),
+            "departamentos" => Departamento::all(),
+            "ordenador" => $ordenador,
         ]);
     }
 

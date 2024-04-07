@@ -41,11 +41,22 @@
                     <p><strong>Ordenar por: </strong></p>
                     <div class="flex items-center text-sm font-semibold select-none
                     hover:cursor-pointer">
-                        <p class="mx-1 hover:text-dsLight">Nada</p> |
-                        <p class="mx-1 hover:text-dsLight">Menor preço</p> |
-                        <p class="mx-1 hover:text-dsLight">Maior preço</p> |
-                        <p class="mx-1 hover:text-dsLight">Acessos</p>
-                        <p style="display:none" class="valorOrd">codigo</p>
+                        <a href="/produtos/{{$busca}}"
+                        class="mx-1 hover:text-dsLight Nada">
+                            Nada
+                        </a> |
+                        <a href="/produtos/{{$busca}}/Menor-Preço"
+                        class="mx-1 hover:text-dsLight Menor-Preço">
+                            Menor preço
+                        </a> |
+                        <a href="/produtos/{{$busca}}/Maior-Preço"
+                        class="mx-1 hover:text-dsLight Maior-Preço">
+                            Maior preço
+                        </a> |
+                        <a href="/produtos/{{$busca}}/Acessos"
+                        class="mx-1 hover:text-dsLight Acessos">
+                            Acessos
+                        </a>
                     </div>
                 </div>
             </div>
@@ -69,6 +80,7 @@
 </x-layout>
 <script>
     document.querySelector("body").style.background = "#F2F2F2"
-    document.title = "Busca por {{$busca}}" 
+    document.title = "Busca por {{$busca}}"
+    document.querySelector(".{{$ordenador}}").classList.add("text-dsLight")
 </script>
 <script src="{{asset("js/pesquisa.js")}}"></script>

@@ -14,6 +14,8 @@ Route::get("/busca/{busca}", [ProdutoController::class, "buscar"]);
 
 Route::get("/produtos/{busca}", [ProdutoController::class, "buscar"]);
 
+Route::get("/produtos/{busca}/{ordenador}", [ProdutoController::class, "buscarOrdenado"]);
+
 Route::get("/login", [UserController::class, "login"])->middleware("guest")->name("login");
 
 Route::get("/registrar", [UserController::class, "registrar"])->middleware("guest");
