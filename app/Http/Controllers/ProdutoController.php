@@ -74,6 +74,12 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public function mostrarPagReview(Produto $produto) {
+        return view("escreverReview", [
+            "produto" => VwProduto::find($produto->id)
+        ]);
+    }
+
     public function buscarOrdenado($busca,$ordenador) {
         $busca = str_replace("-", " ", $busca);
         switch($ordenador) {

@@ -8,23 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function teste() {
-        $data = [
-        "nome" => "Davi",
-        "sobrenome" => "Simionato",
-        "telefone" => "(14) 99846-5258",
-        "nome_usuario" => "Davi.s",
-        "email" => "davi@gmail.com",
-        "senha" => bcrypt("123"),
-        "pergunta_secreta" => "teste",
-        "resposta_secreta" => bcrypt("teste123"),
-        "cpf" => "12345678901",
-        ];
-
-        User::create($data);
-        return redirect("/");
-    }
-
     public function login() {
         return view("login");
     }
