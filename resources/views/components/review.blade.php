@@ -28,7 +28,7 @@
         </p>
     </div>
 
-    <div class="text-dsText font-bold my-1">
+    <div class="text-dsText font-bold my-1 mx-1">
         @switch(intval($review->nota))
             @case(0)
                 <p>Péssimo</p>
@@ -53,7 +53,7 @@
         @endswitch
     </div>
 
-    <div class="text-dsText my-1 text-sm">
+    <div class="text-dsText my-1 text-sm mx-1">
         <p>
             {{$review->comentario}}
         </p>

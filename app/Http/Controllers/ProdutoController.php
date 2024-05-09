@@ -6,6 +6,7 @@ use App\Models\Departamento;
 use App\Models\Historico;
 use App\Models\Marca;
 use App\Models\Produto;
+use App\Models\Review;
 use App\Models\VwHistorico;
 use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
@@ -34,12 +35,19 @@ class ProdutoController extends Controller
     public function show(Produto $produto) {
         $produto->acessos = intval($produto->acessos) + 1;
         $produto->save();
+        $fezReview = false;
         if(!is_null(auth()->user())) {
             self::registrarHistorico(auth()->id(),$produto->id);
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
             ->orderByDesc('historico_id')
             ->take(25)
             ->get();
+
+            $rev = Review::query()->where("user_id", auth()->id())
+            ->where("produto_id", $produto->id)->get();
+            if(!$rev->isEmpty()) {
+                $fezReview = true;
+            }
         }
         return view("show",[
             "produto" => VwProduto::find($produto->id),
@@ -47,6 +55,7 @@ class ProdutoController extends Controller
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "produtosVistoRecentemente" => $prodsRecentes ?? array(),
             "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
+            "fezReview" => $fezReview,
         ]);
     }
 
@@ -75,9 +84,42 @@ class ProdutoController extends Controller
     }
 
     public function mostrarPagReview(Produto $produto) {
+        if(!is_null(auth()->user())) {
+            $rev = Review::query()->where("user_id", auth()->id())
+            ->where("produto_id", $produto->id)->get();
+
+            if(!$rev->isEmpty()) {
+                return redirect("/");
+            }
+        }
         return view("escreverReview", [
             "produto" => VwProduto::find($produto->id)
         ]);
+    }
+
+    public function cadastrarReview(Produto $produto) {
+        $rev = Review::query()->where("user_id", auth()->id())
+        ->where("produto_id", $produto->id)->get();
+        if(!$rev->isEmpty()) {
+            return redirect("/");
+        }else {
+            $nota = request()->validate([
+                "nota" => "required|integer|between:0,5",
+            ]);
+            $comentario = request()->input("comentario");
+            if(empty($comentario)) {
+                $comentario = "Nenhum comentário";
+            }
+            $dataReview = date("d/m/Y");
+            Review::create([
+                "nota" => $nota["nota"],
+                "user_id" => auth()->id(),
+                "produto_id" => $produto->id,
+                "comentario" => $comentario,
+                "data_review" => $dataReview,
+            ]);
+            return redirect("/")->with("mensagem", "Avaliação cadastrada!");
+        }
     }
 
     public function buscarOrdenado($busca,$ordenador) {

@@ -221,10 +221,17 @@
                     Ver mais avaliações
                 </a>
             @endif
-            <a href="{{"/escreverReview/$produto->id/" . str_replace(" ", "-", $produto->nome)}}"
-            class="bg-ds p-1.5 rounded mx-2">
-                Escrever review
-            </a>
+
+            @if ($fezReview == false)
+                <a href="{{"/escreverReview/$produto->id/" . str_replace(" ", "-", $produto->nome)}}"
+                class="bg-ds p-1.5 rounded mx-2">
+                    Escrever review
+                </a>
+            @else 
+                <button class="bg-ds p-1.5 rounded mx-2 uppercase">
+                    Ver sua review
+                </button>
+            @endif
         </div>
     </section>
 

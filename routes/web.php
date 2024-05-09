@@ -30,6 +30,8 @@ Route::get("/carrinho", [UserController::class, "carrinho"])->middleware("auth")
 
 Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 
+Route::post("/cadastrarReview/{produto}", [ProdutoController::class, "cadastrarReview"])->middleware("auth");
+
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
