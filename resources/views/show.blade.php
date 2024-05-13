@@ -32,7 +32,8 @@
                     alt="{{$produto->marca}}" class="w-20 select-none pointer-events-none">
                     <div class="border"></div>
 
-                    <div class="select-none flex items-center">
+                    <div class="select-none">
+                    <a href="#reviews" class="flex items-center">
                         @for ($i = 0; $i < 4; $i++)
                             @if (intval($produto->nota) > $i)
                                 <span class="material-symbols-outlined ifill text-ds text-xl">
@@ -61,9 +62,10 @@
                         <p class="text-sm text-dsTextLight">
                             - {{$produto->nota}} ({{$produto->qtd_reviews}} Reviews)
                         </p>
+                    </a>
                     </div>
 
-                    <div class="border "></div>
+                    <div class="border"></div>
                     <a href="/favoritar/{{$produto->id}}/{{str_replace(" ", "-", $produto->nome)}}"
                     class="flex items-center">
                         <span class="material-symbols-outlined fav font-light" 
@@ -202,7 +204,7 @@
         </div>
     </section>
 
-    <section class="container bg-white p-5 mt-4 rounded">
+    <section class="container bg-white p-5 mt-4 rounded" id="reviews">
         <x-section-topic :titulo="'Avaliações'" :icone="'reviews'"
         style="margin-left: 0px"/>
         @if (intval($produto->qtd_reviews == 0))
@@ -227,10 +229,6 @@
                 class="bg-ds p-1.5 rounded mx-2">
                     Escrever review
                 </a>
-            @else 
-                <button class="bg-ds p-1.5 rounded mx-2 uppercase">
-                    Ver sua review
-                </button>
             @endif
         </div>
     </section>

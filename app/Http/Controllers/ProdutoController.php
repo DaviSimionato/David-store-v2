@@ -89,7 +89,7 @@ class ProdutoController extends Controller
             ->where("produto_id", $produto->id)->get();
 
             if(!$rev->isEmpty()) {
-                return redirect("/");
+                return redirect("/")->with("mensagem", "Você já avaliou este produto!");
             }
         }
         return view("escreverReview", [
@@ -101,7 +101,7 @@ class ProdutoController extends Controller
         $rev = Review::query()->where("user_id", auth()->id())
         ->where("produto_id", $produto->id)->get();
         if(!$rev->isEmpty()) {
-            return redirect("/");
+            return redirect("/")->with("mensagem", "Você já avaliou este produto!");
         }else {
             $nota = request()->validate([
                 "nota" => "required|integer|between:0,5",
