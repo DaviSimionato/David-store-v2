@@ -16,6 +16,8 @@ Route::get("/produtos/{busca}", [ProdutoController::class, "buscar"]);
 
 Route::get("/produtos/{busca}/{ordenador}", [ProdutoController::class, "buscarOrdenado"]);
 
+Route::get("/reviews/{produto}/{nome}", [ProdutoController::class, "mostrarReviews"])->where('nome', '.*');
+
 Route::get("/escreverReview/{produto}/{nome}", [ProdutoController::class, "mostrarPagReview"])->middleware("auth")->where('nome', '.*');
 
 Route::get("/login", [UserController::class, "login"])->middleware("guest")->name("login");

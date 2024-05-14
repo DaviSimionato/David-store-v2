@@ -83,6 +83,13 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public function mostrarReviews(Produto $produto) {
+        return view("reviews",[
+            "produto" => VwProduto::find($produto->id),
+            "reviews" => VwReview::where("produto_id", $produto->id)->get()
+        ]);
+    }
+
     public function mostrarPagReview(Produto $produto) {
         if(!is_null(auth()->user())) {
             $rev = Review::query()->where("user_id", auth()->id())
