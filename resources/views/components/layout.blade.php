@@ -20,5 +20,16 @@
         {{$slot}}
     <x-mensagem/>
     <x-footer/>
+    @if (session()->has("mensagem"))
+    <script>
+        setTimeout(() => {
+            let mensagem = document.querySelector(".mensagem");
+            mensagem.classList.add("fadeOut");
+            mensagem.addEventListener("animationend",()=> {
+                mensagem.style.display = "none";
+            });
+        }, 3000);
+    </script>
+    @endif
 </body>
 </html>

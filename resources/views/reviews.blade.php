@@ -4,13 +4,20 @@
             <h2 class="text-dsText font-bold text-2xl">
                 Avaliações do produto
             </h2>
-            <a href="/produto/{{"$produto->id/" . str_replace(" ", "-", $produto->nome)}}" class="flex my-3">
+            <a href="/produto/{{"$produto->id/" . str_replace(" ", "-", $produto->nome)}}" 
+            class="flex my-3 group">
                 <img src="{{asset("imagens/produtos/$produto->imagem_produto")}}" 
                 alt="{{$produto->nome}}"
                 width='180'>
-                <p class="p-6 text-dsText">
-                    {{$produto->nome}}
-                </p>
+                <div>
+                    <p class="p-6 text-dsText">
+                        {{$produto->nome}}
+                    </p>
+                    <span class="p-6 text-dsText uppercase opacity-0 text-xl font-bold
+                    ml-6 group-hover:opacity-40">
+                        Ver produto
+                    </span>
+                </div>
             </a>
         </div>
         <div class="container bg-white p-5 mt-4 rounded" id="reviews">
@@ -28,9 +35,10 @@
 <script>
     document.title = "Avaliações - {{$produto->nome}}";
     document.querySelector("body").style.background = "#f2f2f2";
+    document.querySelector("footer").classList.add("sticky","bottom-0");
 </script>
 @if (intval($produto->qtd_reviews < 3))
     <script>
-        document.querySelector("footer").classList.add("absolute","bottom-0");
+        
     </script>
 @endif

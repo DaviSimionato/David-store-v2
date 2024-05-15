@@ -92,14 +92,3 @@
 @auth
 <script src="{{asset("js/sliderVR.js")}}"></script>
 @endauth
-@if (session()->has("mensagem"))
-<script>
-    setTimeout(() => {
-        let mensagem = document.querySelector(".mensagem");
-        mensagem.classList.add("fadeOut");
-        mensagem.addEventListener("animationend",()=> {
-            mensagem.style.display = "none";
-        });
-    }, 2000);
-</script>
-@endif

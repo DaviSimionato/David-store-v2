@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Favorito;
 use App\Models\Historico;
 use App\Models\Marca;
 use App\Models\Produto;
@@ -36,6 +37,7 @@ class ProdutoController extends Controller
         $produto->acessos = intval($produto->acessos) + 1;
         $produto->save();
         $fezReview = false;
+        $favorito = false;
         if(!is_null(auth()->user())) {
             self::registrarHistorico(auth()->id(),$produto->id);
             $prodsRecentes = VwHistorico::where("user_id", auth()->id())
@@ -48,6 +50,12 @@ class ProdutoController extends Controller
             if(!$rev->isEmpty()) {
                 $fezReview = true;
             }
+
+            $fav = Favorito::query()->where("user_id", auth()->id())
+            ->where("produto_id", $produto->id)->get();
+            if(!$fav->isEmpty()) {
+                $favorito = true;
+            }
         }
         return view("show",[
             "produto" => VwProduto::find($produto->id),
@@ -55,8 +63,27 @@ class ProdutoController extends Controller
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "produtosVistoRecentemente" => $prodsRecentes ?? array(),
             "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
+            "favorito" =>$favorito,
             "fezReview" => $fezReview,
         ]);
+    }
+
+    public function favoritarProduto(Produto $produto) {
+        $nome = str_replace(" ", "-", $produto->nome);
+        $fav = Favorito::query()->where("user_id", auth()->id())
+        ->where("produto_id", $produto->id)->get();
+        if($fav->isEmpty()) {
+            Favorito::create([
+                "user_id" => auth()->id(),
+                "produto_id" => $produto->id
+            ]);
+            $mensagem = "Produto adicionado aos favoritos!";
+        }else {
+            $fav[0]->delete();
+            $mensagem = "Produto removido dos favoritos!";
+        }
+        return redirect("/produto/{$produto->id}/$nome")
+        ->with("mensagem", $mensagem);
     }
 
     public function handleBusca(Request $request) {
@@ -96,7 +123,9 @@ class ProdutoController extends Controller
             ->where("produto_id", $produto->id)->get();
 
             if(!$rev->isEmpty()) {
-                return redirect("/")->with("mensagem", "Você já avaliou este produto!");
+                $nome = str_replace(" ", "-", $produto->nome);
+                return redirect("/produto/{$produto->id}/$nome")
+                ->with("mensagem", "Você já avaliou este produto!");
             }
         }
         return view("escreverReview", [
@@ -105,10 +134,12 @@ class ProdutoController extends Controller
     }
 
     public function cadastrarReview(Produto $produto) {
+        $nome = str_replace(" ", "-", $produto->nome);
         $rev = Review::query()->where("user_id", auth()->id())
         ->where("produto_id", $produto->id)->get();
         if(!$rev->isEmpty()) {
-            return redirect("/")->with("mensagem", "Você já avaliou este produto!");
+            return redirect("/produto/{$produto->id}/$nome")
+            ->with("mensagem", "Você já avaliou este produto!");
         }else {
             $nota = request()->validate([
                 "nota" => "required|integer|between:0,5",
@@ -125,7 +156,8 @@ class ProdutoController extends Controller
                 "comentario" => $comentario,
                 "data_review" => $dataReview,
             ]);
-            return redirect("/")->with("mensagem", "Avaliação cadastrada!");
+            return redirect("/produto/{$produto->id}/$nome")
+                ->with("mensagem", "Avaliação cadastrada!");
         }
     }
 

@@ -68,10 +68,17 @@
                     <div class="border"></div>
                     <a href="/favoritar/{{$produto->id}}/{{str_replace(" ", "-", $produto->nome)}}"
                     class="flex items-center">
-                        <span class="material-symbols-outlined fav font-light" 
-                        title="Adicionar aos favoritos" style="font-size:30px;color:#7F858D">
-                            favorite
-                        </span>
+                        @if ($favorito)
+                            <span class="material-symbols-outlined fav font-light text-ds ifill" 
+                            title="Remover dos favoritos" style="font-size:30px">
+                                favorite
+                            </span>
+                        @else
+                            <span class="material-symbols-outlined fav font-light" 
+                            title="Adicionar aos favoritos" style="font-size:30px;color:#7F858D">
+                                favorite
+                            </span>
+                        @endif
                     </a>
                 </div>
                 <img src="{{asset("imagens/produtos/$produto->imagem_produto")}}" alt="{{$produto->nome}}"
