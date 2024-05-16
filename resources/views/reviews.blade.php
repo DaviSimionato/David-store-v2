@@ -35,10 +35,9 @@
 <script>
     document.title = "Avaliações - {{$produto->nome}}";
     document.querySelector("body").style.background = "#f2f2f2";
-    document.querySelector("footer").classList.add("sticky","bottom-0");
+    document.querySelector("footer").classList.add("absolute","bottom-0");
+    document.addEventListener("scroll",()=> {
+        document.querySelector("footer").classList.remove("absolute");
+        document.querySelector("footer").classList.add("sticky");
+    });
 </script>
-@if (intval($produto->qtd_reviews < 3))
-    <script>
-        
-    </script>
-@endif

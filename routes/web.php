@@ -18,6 +18,8 @@ Route::get("/produtos/{busca}/{ordenador}", [ProdutoController::class, "buscarOr
 
 Route::get("/favoritar/{produto}/{nome}", [ProdutoController::class, "favoritarProduto"])->where('nome', '.*')->middleware("auth");
 
+Route::get("/favoritos", [ProdutoController::class, "mostrarFavoritos"])->middleware("auth");
+
 Route::get("/reviews/{produto}/{nome}", [ProdutoController::class, "mostrarReviews"])->where('nome', '.*');
 
 Route::get("/escreverReview/{produto}/{nome}", [ProdutoController::class, "mostrarPagReview"])->where('nome', '.*')->middleware("auth");
@@ -27,8 +29,6 @@ Route::get("/login", [UserController::class, "login"])->middleware("guest")->nam
 Route::get("/registrar", [UserController::class, "registrar"])->middleware("guest");
 
 Route::get("/perfil", [UserController::class, "perfil"])->middleware("auth");
-
-Route::get("/favoritos", [UserController::class, "favoritos"])->middleware("auth");
 
 Route::get("/carrinho", [UserController::class, "carrinho"])->middleware("auth");
 

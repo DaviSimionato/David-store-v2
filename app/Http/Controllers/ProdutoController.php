@@ -86,6 +86,10 @@ class ProdutoController extends Controller
         ->with("mensagem", $mensagem);
     }
 
+    public function mostrarFavoritos() {
+        return view("favoritos");
+    }
+
     public function handleBusca(Request $request) {
         if(empty($request->b)) {
             return redirect("/");
