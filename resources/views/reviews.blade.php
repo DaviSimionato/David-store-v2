@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded p-6 mt-3">
+    <div class="container bg-white rounded p-6 mt-3 min-h-[70vh]">
         <div class="">
             <h2 class="text-dsText font-bold text-2xl">
                 Avaliações do produto
@@ -9,7 +9,7 @@
                 <img src="{{asset("imagens/produtos/$produto->imagem_produto")}}" 
                 alt="{{$produto->nome}}"
                 width='180'>
-                <div>
+                <div class="my-6">
                     <p class="p-6 text-dsText">
                         {{$produto->nome}}
                     </p>
@@ -35,9 +35,8 @@
 <script>
     document.title = "Avaliações - {{$produto->nome}}";
     document.querySelector("body").style.background = "#f2f2f2";
-    document.querySelector("footer").classList.add("absolute","bottom-0");
-    document.addEventListener("scroll",()=> {
-        document.querySelector("footer").classList.remove("absolute");
-        document.querySelector("footer").classList.add("sticky");
-    });
+    document.querySelector("body").style.display = "flex";
+    document.querySelector("body").style.minHeight = "100vh";
+    document.querySelector("body").style.flexDirection = "column";
+    document.querySelector("body").style.justifyContent = "space-between";
 </script>

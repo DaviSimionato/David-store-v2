@@ -8,6 +8,7 @@ use App\Models\Historico;
 use App\Models\Marca;
 use App\Models\Produto;
 use App\Models\Review;
+use App\Models\VwFavorito;
 use App\Models\VwHistorico;
 use App\Models\VwProduto;
 use App\Models\VwProdutosRecomendados;
@@ -87,7 +88,10 @@ class ProdutoController extends Controller
     }
 
     public function mostrarFavoritos() {
-        return view("favoritos");
+        return view("favoritos", [
+            "produtos" => VwFavorito::query()
+            ->where("user_id", auth()->id())->get()
+        ]);
     }
 
     public function handleBusca(Request $request) {
