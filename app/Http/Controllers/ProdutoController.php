@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrinho;
 use App\Models\Departamento;
 use App\Models\Favorito;
 use App\Models\Historico;
@@ -57,6 +58,7 @@ class ProdutoController extends Controller
             if(!$fav->isEmpty()) {
                 $favorito = true;
             }
+
         }
         return view("show",[
             "produto" => VwProduto::find($produto->id),
@@ -92,6 +94,23 @@ class ProdutoController extends Controller
             "produtos" => VwFavorito::query()
             ->where("user_id", auth()->id())->get()
         ]);
+    }
+
+    public function addCarrinho(Produto $produto) {
+        $nome = str_replace(" ", "-", $produto->nome);
+        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
+        ->where("produto_id", $produto->id)->get();
+        if($carrinhoCheck->isEmpty()) {
+            Carrinho::create([
+                "user_id" => auth()->id(),
+                "produto_id" => $produto->id
+            ]);
+            $mensagem = "Produto adicionado ao carrinho!";
+        }else {
+            $mensagem = "Produto já presente no carrinho!";
+        }
+        return redirect("/produto/{$produto->id}/$nome")
+        ->with("mensagem", $mensagem);
     }
 
     public function handleBusca(Request $request) {

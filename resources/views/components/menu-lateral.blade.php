@@ -1,10 +1,4 @@
-@php
-    use App\Models\Departamento;
-    use App\Models\Categoria;
-
-    $menuDepartamentos = Departamento::all();
-    $menuCategorias = Categoria::all();
-@endphp
+@props(["menuDepartamentos", "menuCategorias"])
 <div class="fixed w-full h-screen overflow-hidden top-0 hidden menuLateral z-50">
     <div class="bg-ds w-1/5 h-screen p-8 pr-6 text-white font-bold ml"
     style="width: 360px">

@@ -1,3 +1,4 @@
+@props(["qtdCarrinho"])
 <header class="bg-ds w-full text-white">
     <div class="container max-w-cds py-6 flex align-middle justify-between">
         <span 
@@ -67,11 +68,17 @@
                 </span>
             </a>
             <a href='/carrinho' class="flex">
-                <span title='Carrinho'
-                class='material-symbols-outlined fav ifill text-2xl ml-4
-                {{$carrinhoAlert ?? ""}}'>
-                shopping_cart
-                </span>
+                @if ($qtdCarrinho > 0)
+                    <span title='{{$qtdCarrinho}} itens no carrinho'
+                    class='material-symbols-outlined carrinho ifill text-2xl ml-4'>
+                        shopping_cart
+                    </span>
+                @else 
+                    <span title='Carrinho'
+                    class='material-symbols-outlined carrinho ifill text-2xl ml-4'>
+                        shopping_cart
+                    </span>
+                @endif
             </a>
         </div>
     </div>

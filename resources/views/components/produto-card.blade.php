@@ -16,7 +16,7 @@
         </span>
         <p class="hidden preco">{{$produto->precoAvistaVlr}}</p>
     </a>
-    <a href="{{"/addcart/$produto->id/" . str_replace(" ", "-", $produto->nome)}}" 
+    <a href="{{"/addCarrinho/$produto->id/" . str_replace(" ", "-", $produto->nome)}}" 
     class="bg-ds uppercase block rounded text-white text-center 
     font-bold p-1.5 m-2 mt-5 hover:bg-dsLight">
         Comprar

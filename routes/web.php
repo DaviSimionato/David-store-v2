@@ -32,6 +32,8 @@ Route::get("/perfil", [UserController::class, "perfil"])->middleware("auth");
 
 Route::get("/carrinho", [UserController::class, "carrinho"])->middleware("auth");
 
+Route::get("/addCarrinho/{produto}/{nome}", [ProdutoController::class, "addCarrinho"])->where('nome', '.*')->middleware("auth");
+
 Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 
 Route::post("/cadastrarReview/{produto}", [ProdutoController::class, "cadastrarReview"])->middleware("auth");
