@@ -113,6 +113,25 @@ class ProdutoController extends Controller
         ->with("mensagem", $mensagem);
     }
 
+    public function preCarrinho(VwProduto $produto) {
+        $nome = str_replace(" ", "-", $produto->nome);
+        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
+        ->where("produto_id", $produto->id)->get();
+        if($carrinhoCheck->isEmpty()) {
+            Carrinho::create([
+                "user_id" => auth()->id(),
+                "produto_id" => $produto->id
+            ]);
+            $mensagem = "Produto adicionado ao carrinho!";
+        }else {
+            $mensagem = "Produto já presente no carrinho!";
+        }
+        return view("preCarrinho",[
+            "produto" => $produto,
+            "mensagem" => $mensagem,
+        ]); 
+    }
+
     public function handleBusca(Request $request) {
         if(empty($request->b)) {
             return redirect("/");
