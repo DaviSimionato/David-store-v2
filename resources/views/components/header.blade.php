@@ -63,19 +63,21 @@
         <div class='flex self-center ml-4'>
             <a href='/favoritos' class="flex">
                 <span title='Favoritos' 
-                class='material-symbols-outlined fav ifill text-2xl'>
+                class='material-symbols-outlined fav ifill text-2xl hover:text-stone-300'>
                 favorite
                 </span>
             </a>
             <a href='/carrinho' class="flex">
                 @if ($qtdCarrinho > 0)
                     <span title='{{$qtdCarrinho}} itens no carrinho'
-                    class='material-symbols-outlined carrinho ifill text-2xl ml-4'>
+                    class='material-symbols-outlined carrinho ifill text-2xl ml-4
+                    hover:text-stone-300'>
                         shopping_cart
                     </span>
                 @else 
                     <span title='Carrinho'
-                    class='material-symbols-outlined carrinho ifill text-2xl ml-4'>
+                    class='material-symbols-outlined carrinho ifill text-2xl ml-4
+                    hover:text-stone-300'>
                         shopping_cart
                     </span>
                 @endif
