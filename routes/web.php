@@ -30,9 +30,11 @@ Route::get("/registrar", [UserController::class, "registrar"])->middleware("gues
 
 Route::get("/perfil", [UserController::class, "perfil"])->middleware("auth");
 
-Route::get("/carrinho", [UserController::class, "carrinho"])->middleware("auth");
+Route::get("/carrinho", [ProdutoController::class, "carrinho"])->middleware("auth");
 
 Route::get("/addCarrinho/{produto}/{nome}", [ProdutoController::class, "addCarrinho"])->where('nome', '.*')->middleware("auth");
+
+Route::get("/removerCarrinho/{produto}/{nome}", [ProdutoController::class, "removerCarrinho"])->where('nome', '.*')->middleware("auth");
 
 Route::get("/comprar/{produto}/{nome}", [ProdutoController::class, "preCarrinho"])->where('nome', '.*')->middleware("auth");
 

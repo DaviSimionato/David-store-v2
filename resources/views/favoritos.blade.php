@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container bg-white rounded p-6 mt-3 min-h-[70vh]">
         <div class="">
-            <h2 class="text-dsText font-bold text-2xl uppercase">
+            <h2 class="text-dsText font-bold text-xl uppercase">
                 Produtos favoritos
             </h2>
             @if($produtos->isEmpty())
@@ -41,7 +41,7 @@
     </div>
 </x-layout>
 <script>
-    document.title = "Favoritos";
+    document.title = "Favoritos - {{$produtos->count()}} itens";
     document.querySelector("body").style.background = "#f2f2f2";
     document.querySelector("body").style.display = "flex";
     document.querySelector("body").style.minHeight = "100vh";

@@ -9,6 +9,7 @@ use App\Models\Historico;
 use App\Models\Marca;
 use App\Models\Produto;
 use App\Models\Review;
+use App\Models\VwCarrinho;
 use App\Models\VwFavorito;
 use App\Models\VwHistorico;
 use App\Models\VwProduto;
@@ -96,6 +97,12 @@ class ProdutoController extends Controller
         ]);
     }
 
+    public function carrinho() {
+        return view("carrinho",[
+            "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get()
+        ]);
+    }
+
     public function addCarrinho(Produto $produto) {
         $nome = str_replace(" ", "-", $produto->nome);
         $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
@@ -113,8 +120,16 @@ class ProdutoController extends Controller
         ->with("mensagem", $mensagem);
     }
 
+    public function removerCarrinho(Produto $produto) {
+        $produtoCarrinho = Carrinho::query()->where("user_id", auth()->id())
+        ->where("produto_id", $produto->id)->get();
+        if(!$produtoCarrinho->isEmpty()) {
+            $produtoCarrinho[0]->delete();
+        }
+        return redirect("/carrinho")->with("mensagem", "Produto removido do carrinho!");
+    }
+
     public function preCarrinho(VwProduto $produto) {
-        $nome = str_replace(" ", "-", $produto->nome);
         $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
         ->where("produto_id", $produto->id)->get();
         if($carrinhoCheck->isEmpty()) {
@@ -122,9 +137,9 @@ class ProdutoController extends Controller
                 "user_id" => auth()->id(),
                 "produto_id" => $produto->id
             ]);
-            $mensagem = "Produto adicionado ao carrinho!";
+            $mensagem = "Produto adicionado ao carrinho";
         }else {
-            $mensagem = "Produto já presente no carrinho!";
+            $mensagem = "Produto já presente no carrinho";
         }
         return view("preCarrinho",[
             "produto" => $produto,
