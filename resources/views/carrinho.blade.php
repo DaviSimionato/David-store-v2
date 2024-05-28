@@ -1,16 +1,20 @@
 <x-layout>
-    {{-- {{$produtos->sum("precoAvistaVlr")}} --}}
-    <div class="container flex justify-between">
+    <section class="container flex justify-between">
         <div class="bg-white rounded p-6 mt-3 min-h-[70vh] w-[74%]">
             <div class="">
-                <h2 class="text-dsText font-bold text-xl uppercase">
-                    PRODUTOS SELECIONADOS
-                </h2>
+                <x-section-topic style="margin-left: 0;padding: 0" 
+                :titulo="'PRODUTOS SELECIONADOS'" :icone="'shopping_basket'"/>
                 @if($produtos->isEmpty())
-                    <h2 class="text-dsText text-xl text-center p-32 font-bold uppercase
-                    opacity-80">
-                        Nenhum produto no carrinho
-                    </h2>
+                    <div class="text-center font-bold uppercase text-white">
+                        <h2 class="text-dsText text-xl p-32 pb-16
+                        opacity-80">
+                            Seu carrinho está vazio
+                        </h2>
+                        <a href="/"
+                        class="px-5 py-2 bg-ds rounded hover:bg-dsLight">
+                            Continuar comprando
+                        </a>
+                    </div>
                 @else
                 @foreach ($produtos as $produto)
                 <div class="flex justify-between items-center my-6 mb-10 group 
@@ -38,9 +42,11 @@
                             </p>
                         </div>
                     </div>
-                    <div class="text-[#D50D0D] text-center">
+                    <div class="excluir text-[#D50D0D] text-center rounded
+                    p-2 hover:bg-[#d50d0d1a] cursor-pointer" 
+                    title="Remover produto do carrinho">
                         <a href="/removerCarrinho/{{"$produto->id/" . str_replace(" ", "-", $produto->nome)}}"
-                        title="Remover produto do carrinho">
+                        class="pointer-events-none">
                             <span class="material-symbols-outlined">delete</span>
                             <p style="font-size:10px;font-weight:700;">Remover</p>
                         </a>
@@ -56,15 +62,10 @@
                 </div>
                 @endforeach
                 @endif
-                
             </div>
         </div>
-
-        <div class="flex w-[25%] bg-white rounded max-h-[485px] sticky top-3 
-        p-6 mt-3">
-            <p>aaaaaaaaaaaaaaaaaaaaaaa</p>
-        </div>
-    </div>
+        <x-carrinho-resumo :produtos="$produtos"/>
+    </section>
 </x-layout>
 <script>
     document.title = "Carrinho - {{$produtos->count()}} itens";
@@ -73,4 +74,11 @@
     document.querySelector("body").style.minHeight = "100vh";
     document.querySelector("body").style.flexDirection = "column";
     document.querySelector("body").style.justifyContent = "space-between";
+    const btns = document.querySelectorAll(".excluir");
+    const links = document.querySelectorAll(".excluir a");
+    btns.forEach((btn,i)=> {
+        btn.addEventListener("click",()=> {
+            links[i].click();
+        });
+    });
 </script>
