@@ -147,6 +147,18 @@ class ProdutoController extends Controller
         ]); 
     }
 
+    public function pagamento() {
+        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
+        ->get();
+        if($carrinhoCheck->isEmpty()) {
+            return redirect("/");
+        }else {
+            return view("pagamento",[
+                "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get(),
+            ]); 
+        }
+    }
+
     public function handleBusca(Request $request) {
         if(empty($request->b)) {
             return redirect("/");

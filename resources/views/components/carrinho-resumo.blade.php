@@ -59,10 +59,12 @@
                 </div>
                 <div class="flex items-center justify-center font-bold text-white
                 flex-col uppercase text-center mt-6">
-                    <a href="/carrinho"
-                    class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%]">
-                        Ir para o pagamento
-                    </a>
+                    @if ($produtos->count() > 0)
+                        <a href="/pagamento"
+                        class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%]">
+                            Ir para o pagamento
+                        </a>
+                    @endif
                     <a href="/"
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4">
                         Continuar comprando
