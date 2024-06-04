@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :menuDepartamentos="$menuDepartamentos" :menuCategorias="$menuCategorias" :qtdCarrinho="$qtdCarrinho">
     <main class="container bg-white p-5 mt-3 rounded">
         <div class="flex items-center">
             <p class="font-bold text-dsText">

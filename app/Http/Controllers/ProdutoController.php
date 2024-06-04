@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carrinho;
-use App\Models\Departamento;
-use App\Models\Favorito;
-use App\Models\Historico;
 use App\Models\Marca;
-use App\Models\Produto;
 use App\Models\Review;
+use App\Models\Produto;
+use App\Models\Carrinho;
+use App\Models\Favorito;
+use App\Models\VwReview;
+use App\Models\Categoria;
+use App\Models\Historico;
+use App\Models\VwProduto;
 use App\Models\VwCarrinho;
 use App\Models\VwFavorito;
 use App\Models\VwHistorico;
-use App\Models\VwProduto;
-use App\Models\VwProdutosRecomendados;
-use App\Models\VwReview;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
+use App\Models\VwProdutosRecomendados;
 
 class ProdutoController extends Controller
 {
@@ -33,6 +34,9 @@ class ProdutoController extends Controller
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
             "produtosVistoRecentemente" => $prodsRecentes ?? array(),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
@@ -69,6 +73,9 @@ class ProdutoController extends Controller
             "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
             "favorito" =>$favorito,
             "fezReview" => $fezReview,
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
@@ -93,13 +100,19 @@ class ProdutoController extends Controller
     public function mostrarFavoritos() {
         return view("favoritos", [
             "produtos" => VwFavorito::query()
-            ->where("user_id", auth()->id())->get()
+            ->where("user_id", auth()->id())->get(),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
     public function carrinho() {
         return view("carrinho",[
-            "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get()
+            "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get(),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
@@ -144,6 +157,9 @@ class ProdutoController extends Controller
         return view("preCarrinho",[
             "produto" => $produto,
             "mensagem" => $mensagem,
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]); 
     }
 
@@ -155,7 +171,31 @@ class ProdutoController extends Controller
         }else {
             return view("pagamento",[
                 "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get(),
+                "menuDepartamentos" => Departamento::all(),
+                "menuCategorias" => Categoria::all(),
+                "qtdCarrinho" => Carrinho::getQtd(),
             ]); 
+        }
+    }
+
+    public function confirmarCompra($metodo) {
+        if($metodo != "Pix" && $metodo != "Cartao") {
+            return redirect("/pagamento")->with("mensagem", "Selecione um método de pagamento!");
+        }else {
+            $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
+            ->get();
+            if($carrinhoCheck->isEmpty()) {
+                return redirect("/");
+            }else {
+                return view("confirmarCompra",[
+                    "produtos" => VwCarrinho::query()->where("user_id", auth()->id())
+                    ->get(),
+                    "metodoPag" => $metodo,
+                    "menuDepartamentos" => Departamento::all(),
+                    "menuCategorias" => Categoria::all(),
+                    "qtdCarrinho" => Carrinho::getQtd(),
+                ]);
+            } 
         }
     }
 
@@ -180,13 +220,19 @@ class ProdutoController extends Controller
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
             "ordenador" => "Nada",
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
     public function mostrarReviews(Produto $produto) {
         return view("reviews",[
             "produto" => VwProduto::find($produto->id),
-            "reviews" => VwReview::where("produto_id", $produto->id)->get()
+            "reviews" => VwReview::where("produto_id", $produto->id)->get(),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
@@ -202,7 +248,10 @@ class ProdutoController extends Controller
             }
         }
         return view("escreverReview", [
-            "produto" => VwProduto::find($produto->id)
+            "produto" => VwProduto::find($produto->id),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 
@@ -262,6 +311,9 @@ class ProdutoController extends Controller
             "marcas" => Marca::all(),
             "departamentos" => Departamento::all(),
             "ordenador" => $ordenador,
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
         ]);
     }
 

@@ -1,11 +1,4 @@
-@php
-    use App\Models\Carrinho;
-    use App\Models\Departamento;
-    use App\Models\Categoria;
-    $menuDepartamentos = Departamento::all();
-    $menuCategorias = Categoria::all();
-    $qtdCarrinho = Carrinho::getQtd();
-@endphp
+@props(["menuDepartamentos","menuCategorias","qtdCarrinho"])
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

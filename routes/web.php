@@ -34,6 +34,8 @@ Route::get("/carrinho", [ProdutoController::class, "carrinho"])->middleware("aut
 
 Route::get("/pagamento", [ProdutoController::class, "pagamento"])->middleware("auth");
 
+Route::get("/confirmarCompra/{metodo}", [ProdutoController::class, "confirmarCompra"])->middleware("auth");
+
 Route::get("/addCarrinho/{produto}/{nome}", [ProdutoController::class, "addCarrinho"])->where('nome', '.*')->middleware("auth");
 
 Route::get("/removerCarrinho/{produto}/{nome}", [ProdutoController::class, "removerCarrinho"])->where('nome', '.*')->middleware("auth");

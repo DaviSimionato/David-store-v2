@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :menuDepartamentos="$menuDepartamentos" :menuCategorias="$menuCategorias" :qtdCarrinho="$qtdCarrinho">
     <div class="container rounded mt-4">
         <h2 class="text-dsText text-xl font-bold">
             Mostrando resultados para: {{$busca}}

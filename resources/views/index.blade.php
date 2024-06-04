@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :menuDepartamentos="$menuDepartamentos" :menuCategorias="$menuCategorias" :qtdCarrinho="$qtdCarrinho">
     <script>
         document.querySelector("body").classList.add("bg-slate-200");
     </script>

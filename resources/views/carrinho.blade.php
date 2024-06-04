@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :menuDepartamentos="$menuDepartamentos" :menuCategorias="$menuCategorias" :qtdCarrinho="$qtdCarrinho">
     <section class="container flex justify-between">
         <div class="bg-white rounded p-6 mt-3 min-h-[70vh] w-[74%]">
             <div class="">

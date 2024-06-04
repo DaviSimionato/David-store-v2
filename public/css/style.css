@@ -21,7 +21,13 @@ body:has(.menuLateral.flex) {
     height: 100vh;
     overflow-y: hidden;
 }
-
+.selecionado {
+    border-color: #E8772E !important;
+    background-color: #ffede2;
+}
+.selecionado:hover {
+    background-color: #ffede2 !important;
+}
 .ifill {
     font-variation-settings:
     'FILL' 1,
