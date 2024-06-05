@@ -11,8 +11,6 @@ use App\Models\VwReview;
 use App\Models\Categoria;
 use App\Models\Historico;
 use App\Models\VwProduto;
-use App\Models\VwCarrinho;
-use App\Models\VwFavorito;
 use App\Models\VwHistorico;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
@@ -79,126 +77,6 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function favoritarProduto(Produto $produto) {
-        $nome = str_replace(" ", "-", $produto->nome);
-        $fav = Favorito::query()->where("user_id", auth()->id())
-        ->where("produto_id", $produto->id)->get();
-        if($fav->isEmpty()) {
-            Favorito::create([
-                "user_id" => auth()->id(),
-                "produto_id" => $produto->id
-            ]);
-            $mensagem = "Produto adicionado aos favoritos!";
-        }else {
-            $fav[0]->delete();
-            $mensagem = "Produto removido dos favoritos!";
-        }
-        return redirect("/produto/{$produto->id}/$nome")
-        ->with("mensagem", $mensagem);
-    }
-
-    public function mostrarFavoritos() {
-        return view("favoritos", [
-            "produtos" => VwFavorito::query()
-            ->where("user_id", auth()->id())->get(),
-            "menuDepartamentos" => Departamento::all(),
-            "menuCategorias" => Categoria::all(),
-            "qtdCarrinho" => Carrinho::getQtd(),
-        ]);
-    }
-
-    public function carrinho() {
-        return view("carrinho",[
-            "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get(),
-            "menuDepartamentos" => Departamento::all(),
-            "menuCategorias" => Categoria::all(),
-            "qtdCarrinho" => Carrinho::getQtd(),
-        ]);
-    }
-
-    public function addCarrinho(Produto $produto) {
-        $nome = str_replace(" ", "-", $produto->nome);
-        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
-        ->where("produto_id", $produto->id)->get();
-        if($carrinhoCheck->isEmpty()) {
-            Carrinho::create([
-                "user_id" => auth()->id(),
-                "produto_id" => $produto->id
-            ]);
-            $mensagem = "Produto adicionado ao carrinho!";
-        }else {
-            $mensagem = "Produto já presente no carrinho!";
-        }
-        return redirect("/produto/{$produto->id}/$nome")
-        ->with("mensagem", $mensagem);
-    }
-
-    public function removerCarrinho(Produto $produto) {
-        $produtoCarrinho = Carrinho::query()->where("user_id", auth()->id())
-        ->where("produto_id", $produto->id)->get();
-        if(!$produtoCarrinho->isEmpty()) {
-            $produtoCarrinho[0]->delete();
-        }
-        return redirect("/carrinho")->with("mensagem", "Produto removido do carrinho!");
-    }
-
-    public function preCarrinho(VwProduto $produto) {
-        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
-        ->where("produto_id", $produto->id)->get();
-        if($carrinhoCheck->isEmpty()) {
-            Carrinho::create([
-                "user_id" => auth()->id(),
-                "produto_id" => $produto->id
-            ]);
-            $mensagem = "Produto adicionado ao carrinho";
-        }else {
-            $mensagem = "Produto já presente no carrinho";
-        }
-        return view("preCarrinho",[
-            "produto" => $produto,
-            "mensagem" => $mensagem,
-            "menuDepartamentos" => Departamento::all(),
-            "menuCategorias" => Categoria::all(),
-            "qtdCarrinho" => Carrinho::getQtd(),
-        ]); 
-    }
-
-    public function pagamento() {
-        $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
-        ->get();
-        if($carrinhoCheck->isEmpty()) {
-            return redirect("/");
-        }else {
-            return view("pagamento",[
-                "produtos" => VwCarrinho::query()->where("user_id", auth()->id())->get(),
-                "menuDepartamentos" => Departamento::all(),
-                "menuCategorias" => Categoria::all(),
-                "qtdCarrinho" => Carrinho::getQtd(),
-            ]); 
-        }
-    }
-
-    public function confirmarCompra($metodo) {
-        if($metodo != "Pix" && $metodo != "Cartao") {
-            return redirect("/pagamento")->with("mensagem", "Selecione um método de pagamento!");
-        }else {
-            $carrinhoCheck = Carrinho::query()->where("user_id", auth()->id())
-            ->get();
-            if($carrinhoCheck->isEmpty()) {
-                return redirect("/");
-            }else {
-                return view("confirmarCompra",[
-                    "produtos" => VwCarrinho::query()->where("user_id", auth()->id())
-                    ->get(),
-                    "metodoPag" => $metodo,
-                    "menuDepartamentos" => Departamento::all(),
-                    "menuCategorias" => Categoria::all(),
-                    "qtdCarrinho" => Carrinho::getQtd(),
-                ]);
-            } 
-        }
-    }
-
     public function handleBusca(Request $request) {
         if(empty($request->b)) {
             return redirect("/");
@@ -224,63 +102,6 @@ class ProdutoController extends Controller
             "menuCategorias" => Categoria::all(),
             "qtdCarrinho" => Carrinho::getQtd(),
         ]);
-    }
-
-    public function mostrarReviews(Produto $produto) {
-        return view("reviews",[
-            "produto" => VwProduto::find($produto->id),
-            "reviews" => VwReview::where("produto_id", $produto->id)->get(),
-            "menuDepartamentos" => Departamento::all(),
-            "menuCategorias" => Categoria::all(),
-            "qtdCarrinho" => Carrinho::getQtd(),
-        ]);
-    }
-
-    public function mostrarPagReview(Produto $produto) {
-        if(!is_null(auth()->user())) {
-            $rev = Review::query()->where("user_id", auth()->id())
-            ->where("produto_id", $produto->id)->get();
-
-            if(!$rev->isEmpty()) {
-                $nome = str_replace(" ", "-", $produto->nome);
-                return redirect("/produto/{$produto->id}/$nome")
-                ->with("mensagem", "Você já avaliou este produto!");
-            }
-        }
-        return view("escreverReview", [
-            "produto" => VwProduto::find($produto->id),
-            "menuDepartamentos" => Departamento::all(),
-            "menuCategorias" => Categoria::all(),
-            "qtdCarrinho" => Carrinho::getQtd(),
-        ]);
-    }
-
-    public function cadastrarReview(Produto $produto) {
-        $nome = str_replace(" ", "-", $produto->nome);
-        $rev = Review::query()->where("user_id", auth()->id())
-        ->where("produto_id", $produto->id)->get();
-        if(!$rev->isEmpty()) {
-            return redirect("/produto/{$produto->id}/$nome")
-            ->with("mensagem", "Você já avaliou este produto!");
-        }else {
-            $nota = request()->validate([
-                "nota" => "required|integer|between:0,5",
-            ]);
-            $comentario = request()->input("comentario");
-            if(empty($comentario)) {
-                $comentario = "Nenhum comentário";
-            }
-            $dataReview = date("d/m/Y");
-            Review::create([
-                "nota" => $nota["nota"],
-                "user_id" => auth()->id(),
-                "produto_id" => $produto->id,
-                "comentario" => $comentario,
-                "data_review" => $dataReview,
-            ]);
-            return redirect("/produto/{$produto->id}/$nome")
-                ->with("mensagem", "Avaliação cadastrada!");
-        }
     }
 
     public function buscarOrdenado($busca,$ordenador) {

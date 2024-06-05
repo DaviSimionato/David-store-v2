@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Carrinho;
+use App\Models\Categoria;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function login() {
-        return view("login");
+        return view("login", [
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
     }
 
     public function entrar() {
@@ -33,7 +40,11 @@ class UserController extends Controller
     }
 
     public function registrar() {
-        return view("registrar");
+        return view("registrar", [
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
     }
 
     public function cadastrar() {

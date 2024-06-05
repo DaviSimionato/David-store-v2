@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Itenspedido extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "produto_id",
+        "numero_pedido"
+    ];
+
+    public $timestamps = false;
 }
