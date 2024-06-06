@@ -58,7 +58,7 @@
             {{$pedido->metodo_pagamento}}
         </p>
         <h3 style="margin-bottom: .3rem">
-            Itens pedidos:
+            Itens do pedido:
         </h3>
         @foreach ($itens as $item)
             <p>
