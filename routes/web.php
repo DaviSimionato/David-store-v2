@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
@@ -43,6 +44,8 @@ Route::get("/removerCarrinho/{produto}/{nome}", [CarrinhoController::class, "rem
 
 Route::get("/comprar/{produto}/{nome}", [CarrinhoController::class, "preCarrinho"])->where('nome', '.*')->middleware("auth");
 
+Route::get("/pedidoConfirmado/{numeroPedido}", [CarrinhoController::class, "pedidoConfirmado"])->middleware("auth");
+
 Route::get("/login", [UserController::class, "login"])->middleware("guest")->name("login");
 
 Route::get("/registrar", [UserController::class, "registrar"])->middleware("guest");
@@ -54,3 +57,5 @@ Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
+
+Route::get("/nota/{numeroPedido}", [PdfController::class, "gerarNota"])->middleware("auth");

@@ -8,12 +8,14 @@
                 O número do seu pedido é #{{$numeroPedido}}
             </h2>
             <div class="flex items-center justify-center font-bold text-white">
-                <a href="/nota/{{$numeroPedido}}"
-                class="uppercase px-5 py-2 bg-ds rounded mr-4 hover:bg-dsLight">
-                    Ver nota fiscal
+                <a href="/nota/{{$numeroPedido}}" target="_blank"
+                class="uppercase px-5 py-2 bg-ds rounded w-[250px] mr-4 
+                text-center hover:bg-dsLight">
+                    Ver nota de compra
                 </a>
                 <a href="/"
-                class="uppercase px-5 py-2 bg-ds rounded hover:bg-dsLight">
+                class="uppercase px-5 py-2 bg-ds rounded w-[250px] 
+                text-center hover:bg-dsLight">
                     Continuar comprando
                 </a>
             </div>

@@ -112,6 +112,9 @@ class CarrinhoController extends Controller
         }else {
             $carrinho = VwCarrinho::query()->where("user_id", auth()->id())
             ->get();
+            if($carrinho->isEmpty()) {
+                return redirect("/")->with("mensagem","Seu carrinho está vazio!");
+            }
             $frete = $carrinho->count("id") * 12.3;
             if($metodo == "Pix") {
                 $valorCompra = ($carrinho->sum("precoOriginal") * 0.9) + $frete;
@@ -139,13 +142,16 @@ class CarrinhoController extends Controller
                 ]);
             }
             Carrinho::query()->where("user_id", auth()->id())->delete();
-            return view("pedidoConfirmado",[
-                "metodoPag" => $metodo,
-                "numeroPedido" => $numeroPedido,
-                "menuDepartamentos" => Departamento::all(),
-                "menuCategorias" => Categoria::all(),
-                "qtdCarrinho" => Carrinho::getQtd(),
-            ]);
+            return redirect("/pedidoConfirmado/$numeroPedido");
         }
+    }
+
+    public function pedidoConfirmado($numeroPedido) {
+        return view("pedidoConfirmado",[
+            "numeroPedido" => $numeroPedido,
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
     }
 }
