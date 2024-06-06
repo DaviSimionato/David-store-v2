@@ -1,5 +1,5 @@
 @php
-    $economia = $produtos->sum("precoOriginal") - $produtos->sum("precoAvistaVlr");
+    $economia = number_format(($produtos->sum("precoOriginal") - $produtos->sum("precoAvistaVlr")),2,",",".");
 @endphp
 <x-layout :menuDepartamentos="$menuDepartamentos" :menuCategorias="$menuCategorias" :qtdCarrinho="$qtdCarrinho">
     <section class="container flex justify-between">
@@ -150,7 +150,7 @@
                             </b>
                         </p>
                         <p style="font-size:14px;margin-bottom:10px">
-                            (Economize <b>R${{number_format($economia,2,",",".")}}</b>)
+                            (Economize <b>R${{$economia}}</b>)
                         </p>
                     </div>
                 </div>
