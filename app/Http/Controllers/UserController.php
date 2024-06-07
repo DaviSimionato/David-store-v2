@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Carrinho;
 use App\Models\Categoria;
+use App\Models\VwHistorico;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,19 @@ class UserController extends Controller
                 "password" => "Dados inválidos"
             ]);
         }
+    }
+
+    public function perfil() {
+        $prodsRecentes = VwHistorico::where("user_id", auth()->id())
+        ->orderByDesc('historico_id')
+        ->take(25)
+        ->get();
+        return view("perfil", [
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+            "produtosVistoRecentemente" => $prodsRecentes ?? array(),
+        ]);
     }
 
     public function registrar() {
