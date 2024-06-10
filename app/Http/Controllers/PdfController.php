@@ -18,7 +18,6 @@ class PdfController extends Controller
             $pedido = Pedido::query()->where("numero_pedido", $numeroPedido)->get()[0];
             $itens = VwItensPedido::query()->where("numero_pedido", $numeroPedido)->get();
             $nota = Pdf::loadView("nota", [
-                "dado" => "oiii",
                 "pedido" => $pedido,
                 "itens" => $itens
             ]);
