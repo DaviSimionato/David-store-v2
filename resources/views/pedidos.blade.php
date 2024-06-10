@@ -38,7 +38,7 @@
                     </p>
                 </div>
                 <a href="/pedido/{{$pedido->numero_pedido}}" 
-                class="text-ds mr-12">
+                class="text-ds mr-12 hover:underline">
                     Detalhes do pedido
                     <span class="font-bold">
                         +

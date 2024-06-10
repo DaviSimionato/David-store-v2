@@ -7,8 +7,11 @@
             <div class="">
                 <x-section-topic style="margin-left: 0;padding: 0" 
                 :titulo="'Informações do seu pedido'" :icone="'shopping_bag'"/>
-                <h2 class="text-lg font-bold flex items-center text-dsText">
+                <h2 class="text-lg font-bold flex items-center text-dsText mt-4">
                     Número do pedido: #{{$pedido->numero_pedido}}
+                </h2>
+                <h2 class="text-base font-semibold flex items-center text-dsText">
+                    Método de pagamento: {{$pedido->metodo_pagamento}}
                 </h2>
                 <div class="text-dsText text-sm mt-4 mb-5">
                     <h2 class="text-lg font-bold flex items-center">
