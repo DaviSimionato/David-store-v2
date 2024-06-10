@@ -3,6 +3,7 @@
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,12 @@ Route::get("/comprar/{produto}/{nome}", [CarrinhoController::class, "preCarrinho
 
 Route::get("/pedidoConfirmado/{numeroPedido}", [CarrinhoController::class, "pedidoConfirmado"])->middleware("auth");
 
+Route::get("/nota/{numeroPedido}", [PdfController::class, "gerarNota"])->middleware("auth");
+
+Route::get("/pedidos", [PedidoController::class, "pedidos"])->middleware("auth");
+
+Route::get("/pedido/{numeroPedido}", [PedidoController::class, "pedido"])->middleware("auth");
+
 Route::get("/login", [UserController::class, "login"])->middleware("guest")->name("login");
 
 Route::get("/registrar", [UserController::class, "registrar"])->middleware("guest");
@@ -57,5 +64,3 @@ Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
-
-Route::get("/nota/{numeroPedido}", [PdfController::class, "gerarNota"])->middleware("auth");
