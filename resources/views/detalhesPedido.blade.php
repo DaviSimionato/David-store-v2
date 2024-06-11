@@ -131,7 +131,7 @@
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4">
                         Ver nota de compra
                     </a>
-                    <a href="/pedidos"
+                    <a href="{{url()->previous()}}"
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4">
                         Voltar
                     </a>

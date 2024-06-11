@@ -9,6 +9,7 @@ use App\Models\VwReview;
 use App\Models\Categoria;
 use App\Models\VwProduto;
 use App\Models\Departamento;
+use App\Models\VwProdutosReview;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -68,5 +69,14 @@ class ReviewController extends Controller
             return redirect("/produto/{$produto->id}/$nome")
                 ->with("mensagem", "Avaliação cadastrada!");
         }
+    }
+
+    public function userReviews() {
+        return view("reviewsUsuario", [
+            "reviews" => VwProdutosReview::query()->where("user_id", auth()->id())->get(),
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
     }
 }

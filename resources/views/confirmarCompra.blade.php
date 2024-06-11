@@ -161,7 +161,7 @@
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] continuar">
                         Confirmar compra
                     </a>
-                    <a href="/pagamento"
+                    <a href="{{url()->previous()}}"
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4">
                         Voltar
                     </a>

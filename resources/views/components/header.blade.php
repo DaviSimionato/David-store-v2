@@ -27,7 +27,7 @@
 
         @auth
         <div class='flex items-center'>
-            <span class='material-symbols-outlined mr-2 text-3xl'>account_circle</span>
+            <span class='material-symbols-outlined mr-2 text-3xl ifill'>account_circle</span>
             <div class="text-sm">
                 <p class="select-none">
                     <strong><a href='/perfil' class="hover:underline">Minha conta</a></strong> 

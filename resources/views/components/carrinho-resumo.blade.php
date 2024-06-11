@@ -65,7 +65,7 @@
                             Ir para o pagamento
                         </a>
                     @endif
-                    <a href="/"
+                    <a href="{{url()->previous()}}"
                     class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4">
                         Continuar comprando
                     </a>

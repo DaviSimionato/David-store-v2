@@ -10,7 +10,7 @@
                         opacity-80">
                             Seu carrinho está vazio
                         </h2>
-                        <a href="/"
+                        <a href="{{url()->previous()}}"
                         class="px-5 py-2 bg-ds rounded hover:bg-dsLight">
                             Continuar comprando
                         </a>

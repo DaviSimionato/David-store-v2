@@ -29,6 +29,8 @@ Route::post("/cadastrarReview/{produto}", [ReviewController::class, "cadastrarRe
 
 Route::get("/reviews/{produto}/{nome}", [ReviewController::class, "mostrarReviews"])->where('nome', '.*');
 
+Route::get("/reviews/user", [ReviewController::class, "userReviews"])->middleware("auth");
+
 Route::get("/escreverReview/{produto}/{nome}", [ReviewController::class, "mostrarPagReview"])->where('nome', '.*')->middleware("auth");
 
 Route::get("/carrinho", [CarrinhoController::class, "carrinho"])->middleware("auth");
