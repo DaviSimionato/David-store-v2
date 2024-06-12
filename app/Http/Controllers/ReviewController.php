@@ -73,10 +73,22 @@ class ReviewController extends Controller
 
     public function userReviews() {
         return view("reviewsUsuario", [
-            "reviews" => VwProdutosReview::query()->where("user_id", auth()->id())->get(),
+            "reviews" => VwProdutosReview::query()
+            ->where("user_id", auth()->id())
+            ->orderBy('review_id', 'desc') 
+            ->get(),
             "menuDepartamentos" => Departamento::all(),
             "menuCategorias" => Categoria::all(),
             "qtdCarrinho" => Carrinho::getQtd(),
         ]);
+    }
+
+    public function removerReview(Review $review) {
+        if($review->user_id == auth()->id()) {
+            $review->delete();
+            return redirect("/reviews/user")->with("mensagem", "Review apagada!");
+        }else {
+            return redirect("/reviews/user")->with("mensagem", "Esta review não é sua!");
+        }
     }
 }

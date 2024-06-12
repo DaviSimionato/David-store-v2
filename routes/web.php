@@ -33,6 +33,8 @@ Route::get("/reviews/user", [ReviewController::class, "userReviews"])->middlewar
 
 Route::get("/escreverReview/{produto}/{nome}", [ReviewController::class, "mostrarPagReview"])->where('nome', '.*')->middleware("auth");
 
+Route::get("/removerReview/{review}", [ReviewController::class, "removerReview"])->middleware("auth");
+
 Route::get("/carrinho", [CarrinhoController::class, "carrinho"])->middleware("auth");
 
 Route::get("/pagamento", [CarrinhoController::class, "pagamento"])->middleware("auth");

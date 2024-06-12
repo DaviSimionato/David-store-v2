@@ -62,16 +62,41 @@
                 <div class="excluir text-[#D50D0D] text-center rounded
                 p-2 mr-16 hover:bg-[#d50d0d1a] cursor-pointer" 
                 title="Remover review">
-                    <a href="/removerReview/{{$review->id}}"
-                    class="pointer-events-none select-none">
+                    <div class="pointer-events-none select-none">
                         <span class="material-symbols-outlined">delete</span>
                         <p style="font-size:10px;font-weight:700;">Remover review</p>
-                    </a>
+                        <p class="hidden id">
+                            {{$review->review_id}}
+                        </p>
+                    </div>
                 </div>
             </div>
         @endforeach
     </div>
+    <div class="overlayDeletar bg-[#00000060] fixed w-screen h-screen 
+    overflow-hidden items-center justify-center hidden">
+        <div class="confirmarExcluir bg-zinc-100 rounded p-8 mb-16">
+            <p class="text-dsText font-bold ">
+                Tem certeza que deseja apagar esta review?
+            </p>
+            <div class="flex items-center justify-center font-bold text-white
+            flex-col uppercase text-center mt-4 apagarRev">
+                <a href="/removerReview/-" class="p-[10px] bg-ds rounded
+                hover:bg-dsLight w-[85%] mt-4 hover:cursor-pointer excluir
+                select-none">
+                    Apagar review
+                </a>
+                <div class="p-[10px] bg-ds rounded hover:bg-dsLight w-[85%] mt-4
+                hover:cursor-pointer voltar">
+                    <p class="select-none">
+                        Voltar
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-layout>
+<script src="{{asset("js/reviewBtns.js")}}"></script>
 <script>
     document.title = "Reviews - {{auth()->user()->nome_usuario}}";
     document.querySelector("body").style.background = "#f2f2f2";
