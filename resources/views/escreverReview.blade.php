@@ -68,4 +68,8 @@
 <script>
     document.title = "Escrever review {{$produto->nome}}";
     document.querySelector("body").style.background = "#f2f2f2";
+    document.querySelector("body").style.display = "flex";
+    document.querySelector("body").style.minHeight = "100vh";
+    document.querySelector("body").style.flexDirection = "column";
+    document.querySelector("body").style.justifyContent = "space-between";
 </script>
