@@ -95,16 +95,9 @@
                     <p class="text-[#666e8f] font-normal text-xs">
                         Valor dos Produtos:
                     </p>
-                    @if ($metodoPag == "Pix")
-                    <p class="text-dsText font-bold text-base">
-                        R${{number_format($produtos->sum("precoAvistaVlr"),2,",",".")}}
-                    </p>
-                    @else
                     <p class="text-dsText font-bold text-base">
                         R${{number_format($produtos->sum("precoOriginal"),2,",",".")}}
                     </p>
-                    @endif
-
                 </div>
                 <div class="flex justify-between items-center pb-2">
                     <p class="text-[#666e8f] font-normal text-xs">
@@ -124,6 +117,14 @@
                     </p>
                 </div>  
                 @endif
+                <div class="flex justify-between items-center pb-2">
+                    <p class="text-[#666e8f] font-normal text-xs">
+                        Total:
+                    </p>
+                    <p class="text-dsText font-bold text-base">
+                        {{$pedido->total_pedido}}
+                    </p>
+                </div>
                 <div class="border border-gray-300 rounded"></div>
                 <div class="flex items-center justify-center font-bold text-white
                 flex-col uppercase text-center mt-6">

@@ -44,7 +44,7 @@
                 <div class="verReview text-ds text-center rounded
                 p-2 hover:bg-[#d8b75c1c] cursor-pointer" 
                 title="Ver review">
-                    <a href="/verReview/{{$review->id}}"
+                    <a href="/verReview/{{$review->review_id}}"
                     class="pointer-events-none select-none">
                         <span class="material-symbols-outlined">visibility</span>
                         <p style="font-size:10px;font-weight:700;">Ver review</p>
@@ -53,7 +53,7 @@
                 <div class="editar text-[#0d96d5] text-center rounded
                 p-2 hover:bg-[#0d96d51e] cursor-pointer" 
                 title="Editar review">
-                    <a href="/editarReview/{{$review->id}}"
+                    <a href="/editarReview/{{$review->review_id}}"
                     class="pointer-events-none select-none">
                         <span class="material-symbols-outlined">edit</span>
                         <p style="font-size:10px;font-weight:700;">Editar review</p>

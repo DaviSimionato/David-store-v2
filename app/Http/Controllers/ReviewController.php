@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
     public function mostrarReviews(Produto $produto) {
-        return view("reviews",[
+        return view("review.reviews",[
             "produto" => VwProduto::find($produto->id),
             "reviews" => VwReview::where("produto_id", $produto->id)->get(),
             "menuDepartamentos" => Departamento::all(),
@@ -35,7 +35,7 @@ class ReviewController extends Controller
                 ->with("mensagem", "Você já avaliou este produto!");
             }
         }
-        return view("escreverReview", [
+        return view("review.escreverReview", [
             "produto" => VwProduto::find($produto->id),
             "menuDepartamentos" => Departamento::all(),
             "menuCategorias" => Categoria::all(),
@@ -72,7 +72,7 @@ class ReviewController extends Controller
     }
 
     public function userReviews() {
-        return view("reviewsUsuario", [
+        return view("review.reviewsUsuario", [
             "reviews" => VwProdutosReview::query()
             ->where("user_id", auth()->id())
             ->orderBy('review_id', 'desc') 
@@ -81,6 +81,40 @@ class ReviewController extends Controller
             "menuCategorias" => Categoria::all(),
             "qtdCarrinho" => Carrinho::getQtd(),
         ]);
+    }
+
+    public function verUserReview($review) {
+        $review = VwProdutosReview::query()
+        ->where("review_id", $review)
+        ->where("user_id", auth()->id())
+        ->get();
+        if($review->isEmpty()) {
+            return redirect("/");
+        }else {
+            return view("review.review", [
+                "review" => $review[0],
+                "menuDepartamentos" => Departamento::all(),
+                "menuCategorias" => Categoria::all(),
+                "qtdCarrinho" => Carrinho::getQtd(),
+            ]);
+        }
+    }
+
+    public function editarReview($review) {
+        $review = VwProdutosReview::query()
+        ->where("review_id", $review)
+        ->where("user_id", auth()->id())
+        ->get();
+        if($review->isEmpty()) {
+            return redirect("/");
+        }else {
+            return view("review.editarReview", [
+                "review" => $review[0],
+                "menuDepartamentos" => Departamento::all(),
+                "menuCategorias" => Categoria::all(),
+                "qtdCarrinho" => Carrinho::getQtd(),
+            ]);
+        }
     }
 
     public function removerReview(Review $review) {

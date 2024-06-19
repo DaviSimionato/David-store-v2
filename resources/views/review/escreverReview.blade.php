@@ -51,7 +51,7 @@
                 </div>
             </div>
             <h2 class="text-dsText font-bold text-base mt-6">
-                Dê sua opnião sobre o produto
+                Dê sua opinião sobre o produto
             </h2>
             <textarea name="comentario" cols="30" rows="10" 
             placeholder="Escreva o que achou do produto"
