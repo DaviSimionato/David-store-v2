@@ -8,6 +8,17 @@
                 <p class="mt-1 ml-6 opacity-80">
                     {{$review->data_review}}
                 </p>
+                @if (trim($review->data_edit) != "")
+                <p class="mt-1 ml-2 text-dsText text-sm font-bold opacity-80">
+                    -
+                </p>
+                <p class="mt-1 ml-2 text-dsText text-sm font-bold opacity-80">
+                    editada em:
+                </p>
+                <p class="mt-1 ml-1.5 text-dsText font-bold opacity-80">
+                    {{$review->data_edit}}
+                </p>
+                @endif
             </div>
             <div class="flex my-3">
                 <img src="{{asset("imagens/produtos/$review->imagem_produto")}}" 

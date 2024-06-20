@@ -12,6 +12,8 @@ use App\Models\Departamento;
 use App\Models\VwProdutosReview;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class ReviewController extends Controller
 {
     public function mostrarReviews(Produto $produto) {
@@ -70,7 +72,7 @@ class ReviewController extends Controller
                 ->with("mensagem", "Avaliação cadastrada!");
         }
     }
-
+    
     public function userReviews() {
         return view("review.reviewsUsuario", [
             "reviews" => VwProdutosReview::query()
@@ -115,6 +117,28 @@ class ReviewController extends Controller
                 "qtdCarrinho" => Carrinho::getQtd(),
             ]);
         }
+    }
+
+    public function cadastrarReviewEdit(Review $review) {
+        if($review->user_id != auth()->id()) {
+            return redirect("/")->with("mensagem", "Usuário não é o dono da review!");
+        }
+        $nota = intval(request()->nota);
+        $comentario = trim(request()->comentario);
+        if($nota == intval($review->nota) && $comentario == trim($review->comentario)) {
+            return redirect("/reviews/user")->with("mensagem", "Nenhuma alteração na review!");
+        }
+        if($nota > 5 || $nota < 0) {
+            return redirect(url()->previous())->with("mensagem", "Nota com valor inválido!");
+        }
+        if(empty($comentario)) {
+            $comentario = "Nenhum comentário";
+        }
+        $review->nota = $nota;
+        $review->comentario = $comentario;
+        $review->data_edit = date("d/m/Y");
+        $review->save();
+        return redirect("/reviews/user")->with("mensagem", "Review editada!");
     }
 
     public function removerReview(Review $review) {

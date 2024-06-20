@@ -13,7 +13,7 @@
                 </p>
             </div>
         </div>
-        <form action="/cadastrarReviewEdit/{{$review->id}}" method="post">
+        <form action="/cadastrarReviewEdit/{{$review->review_id}}" method="post">
             @csrf
             @method("POST")
             <h2 class="text-dsText font-bold text-base mt-6">
@@ -56,7 +56,7 @@
             class="mt-3 border border-gray-400 p-2 outline-none text-sm" 
             style="width: 700px;height:150px;resize:none;display:block;margin-bottom:15px"
             >{{$review->comentario}}</textarea>
-            <button type="submit" class="p-2 px-8 bg-ds text-center text-white 
+            <button type="submit" class="mt-2 p-2 px-8 bg-ds text-center text-white 
             uppercase rounded w-[225px] hover:bg-dsLight font-bold">
                 Editar avaliação
             </button>

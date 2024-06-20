@@ -26,6 +26,17 @@
         <p class="ml-2 text-dsText text-sm font-bold opacity-70">
             {{$review->data_review}}
         </p>
+        @if (trim($review->data_edit) != "")
+        <p class="ml-2 text-dsText text-sm font-bold opacity-70">
+            -
+        </p>
+        <p class="ml-2 text-dsText text-sm font-bold opacity-70">
+            editada em:
+        </p>
+        <p class="ml-1.5 text-dsText text-sm font-bold opacity-70">
+            {{$review->data_edit}}
+        </p>
+        @endif
     </div>
 
     <div class="text-dsText font-bold my-1 mx-1">

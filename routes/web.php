@@ -25,8 +25,6 @@ Route::get("/favoritar/{produto}/{nome}", [FavoritoController::class, "favoritar
 
 Route::get("/favoritos", [FavoritoController::class, "mostrarFavoritos"])->middleware("auth");
 
-Route::post("/cadastrarReview/{produto}", [ReviewController::class, "cadastrarReview"])->middleware("auth");
-
 Route::get("/reviews/{produto}/{nome}", [ReviewController::class, "mostrarReviews"])->where('nome', '.*');
 
 Route::get("/reviews/user", [ReviewController::class, "userReviews"])->middleware("auth");
@@ -38,6 +36,10 @@ Route::get("/verReview/{review}", [ReviewController::class, "verUserReview"])->m
 Route::get("/editarReview/{review}", [ReviewController::class, "editarReview"])->middleware("auth");
 
 Route::get("/removerReview/{review}", [ReviewController::class, "removerReview"])->middleware("auth");
+
+Route::post("/cadastrarReview/{produto}", [ReviewController::class, "cadastrarReview"])->middleware("auth");
+
+Route::post("/cadastrarReviewEdit/{review}", [ReviewController::class, "cadastrarReviewEdit"])->middleware("auth");
 
 Route::get("/carrinho", [CarrinhoController::class, "carrinho"])->middleware("auth");
 

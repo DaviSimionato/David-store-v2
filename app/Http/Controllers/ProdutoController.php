@@ -7,7 +7,6 @@ use App\Models\Review;
 use App\Models\Produto;
 use App\Models\Carrinho;
 use App\Models\Favorito;
-use App\Models\VwReview;
 use App\Models\Categoria;
 use App\Models\Historico;
 use App\Models\VwProduto;
@@ -68,7 +67,7 @@ class ProdutoController extends Controller
             "produtosSimilares" => VwProduto::where("categoria_id", $produto->categoria_id)->get(),
             "produtosMaisAcessados" => VwProduto::orderByDesc("acessos")->take(25)->get(),
             "produtosVistoRecentemente" => $prodsRecentes ?? array(),
-            "reviews" => VwReview::where("produto_id", $produto->id)->take(5)->get(),
+            "reviews" => Review::where("produto_id", $produto->id)->take(5)->get(),
             "favorito" =>$favorito,
             "fezReview" => $fezReview,
             "menuDepartamentos" => Departamento::all(),
