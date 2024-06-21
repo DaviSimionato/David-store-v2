@@ -53,6 +53,14 @@ class UserController extends Controller
         ]);
     }
 
+    public function configConta() {
+        return view("configConta", [
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
+    }
+
     public function registrar() {
         return view("registrar", [
             "menuDepartamentos" => Departamento::all(),

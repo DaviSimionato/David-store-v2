@@ -69,6 +69,8 @@ Route::get("/registrar", [UserController::class, "registrar"])->middleware("gues
 
 Route::get("/perfil", [UserController::class, "perfil"])->middleware("auth");
 
+Route::get("/config/conta", [UserController::class, "configConta"])->middleware("auth");
+
 Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
