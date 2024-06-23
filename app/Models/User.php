@@ -11,8 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
-    public $timestamps = false;
     
     protected $fillable = [
         "nome_usuario",
@@ -33,5 +31,6 @@ class User extends Authenticatable
         "password" => "hashed",
         "resposta_secreat" => "hashed",
     ];
-    
+
+    public $timestamps = false;
 }

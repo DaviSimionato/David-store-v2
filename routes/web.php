@@ -76,3 +76,5 @@ Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
+
+Route::post("/configurarConta/alterarDados", [UserController::class, "alterarDados"])->middleware("auth");

@@ -61,6 +61,25 @@ class UserController extends Controller
         ]);
     }
 
+    public function alterarDados() {
+        request()->validate([
+            "nome" => "required|string|max:255",
+            "sobrenome" => "required|string|max:255",
+            "nome_usuario" => "required|string|unique:users,nome_usuario," . auth()->id() . "|max:255",
+            "email" => "required|string|email|unique:users,email," . auth()->id() . "|max:255",
+            "telefone" => "required|string|min:10|max:16", 
+            "cpf" => "required|string|size:14|unique:users,cpf," . auth()->id(),
+        ]);
+        $user = User::query()->where("id", auth()->id())->get()->first();
+        $user["nome"] = request()->nome;
+        $user["sobrenome"] = request()->sobrenome;
+        $user["nome_usuario"] = request()->nome_usuario;
+        $user["email"] = request()->email;
+        $user["cpf"] = request()->cpf;
+        $user->save();
+        return redirect("/perfil")->with("mensagem","Dados alterados com sucesso!");
+    }
+
     public function registrar() {
         return view("registrar", [
             "menuDepartamentos" => Departamento::all(),
