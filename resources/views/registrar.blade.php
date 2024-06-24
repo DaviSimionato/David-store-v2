@@ -127,7 +127,7 @@
                 @enderror
 
                 <button type="submit" class="flex items-center justify-center mt-4
-                p-2 bg-ds font-bold uppercase text-white rounded">
+                p-2 bg-ds font-bold uppercase text-white rounded hover:bg-dsLight">
                     <span class="material-symbols-outlined">login</span>
                     Criar conta
                 </button>
@@ -146,5 +146,9 @@
 <script>
     document.querySelector("body").style.background = "white";
     document.title = "Cadastre-se";
+    document.querySelector("body").style.display = "flex";
+    document.querySelector("body").style.minHeight = "100vh";
+    document.querySelector("body").style.flexDirection = "column";
+    document.querySelector("body").style.justifyContent = "space-between";
 </script>
 <script src="{{asset("js/dadosRegistro.js")}}"></script>

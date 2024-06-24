@@ -10,6 +10,8 @@ use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class UserController extends Controller
 {
     public function login() {
@@ -37,6 +39,38 @@ class UserController extends Controller
                 "email" => "Dados inválidos",
                 "password" => "Dados inválidos"
             ]);
+        }
+    }
+
+    public function recuperarSenha() {
+        return view("recuperarSenha", [
+            "menuDepartamentos" => Departamento::all(),
+            "menuCategorias" => Categoria::all(),
+            "qtdCarrinho" => Carrinho::getQtd(),
+        ]);
+    }
+
+    public function mudarSenha() {
+        $dados = request()->validate([
+            "email" => "required|string|email",
+            "novaSenha" => "required|string|min:3|confirmed",
+            "novaSenha_confirmation" => "required|string|min:3",
+            "respostaSecreta" => "required",
+        ],[
+            "required" => "O campo :attribute é obrigatório.",
+            "string" => "O campo :attribute deve ser um texto.",
+            "min" => "O campo :attribute deve ter no mínimo :min caracteres.",
+            "confirmed" => "A confirmação da senha não confere.",
+        ]);
+        $user = User::query()->where("email", $dados["email"])->get()->first();
+        if(!isset($user)) {
+            return redirect("/recuperarSenha")->with("mensagem","Dados fornecidos não conferem!");
+        }
+        $respostaCorreta = password_verify(request()->respostaSecreta, $user["resposta_secreta"]);
+        if($respostaCorreta) {
+            return redirect("/login")->with("mensagem","Dados alterados!");
+        }else {
+            return redirect("/recuperarSenha")->with("mensagem","Dados fornecidos não conferem!");
         }
     }
 

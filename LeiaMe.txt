@@ -1,0 +1,26 @@
+Manual de utilização
+
+Arquivo baixado pelo teams com todos os arquivos já inseridos - 
+
+- Crie um novo banco de dados com o nome "davidstorev2"
+
+- Execute o arquivo de dumpSql que está na pasta raiz com o nome "davidstorev2Dump.sql"
+
+- Abra o cmd na pasta raiz do projeto
+
+- Execute o comando "php artisan serve" para iniciar o servidor
+
+Caso não tenha sido baixado a pasta já com todos os arquivos devidamente inseridos
+pode ser utilizado o repositório do projeto.
+
+- Repositório git para clonagem: https://github.com/DaviSimionato/David-store-v2
+
+Após a clonagem iniciar o cmd dentro da pasta e executar os comandos - 
+
+- composer i
+
+- npm i
+
+- php artisan key:generate
+
+Após a execução dos comandos seguir as explicações no topo do documento.

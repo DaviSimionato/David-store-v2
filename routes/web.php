@@ -73,8 +73,12 @@ Route::get("/config/conta", [UserController::class, "configConta"])->middleware(
 
 Route::get("/sair", [UserController::class, "sair"])->middleware("auth");
 
+Route::get("/recuperarSenha", [UserController::class, "recuperarSenha"])->middleware("guest");
+
 Route::post("/entrar", [UserController::class, "entrar"])->middleware("guest");
 
 Route::post("/cadastrar", [UserController::class, "cadastrar"])->middleware("guest");
 
 Route::post("/configurarConta/alterarDados", [UserController::class, "alterarDados"])->middleware("auth");
+
+Route::post("/mudarSenha", [UserController::class, "mudarSenha"])->middleware("guest");
