@@ -49,5 +49,6 @@
         }, 3500);
     </script>
     @endif
+    <script src="{{ asset("js/previewBusca.js") }}"></script>
 </body>
 </html>

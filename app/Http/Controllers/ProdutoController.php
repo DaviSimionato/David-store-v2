@@ -146,4 +146,24 @@ class ProdutoController extends Controller
             Historico::create(["user_id" => $u_id,"produto_id" => $p_id]);
         }
     }
+
+    public function buscarProdutoApi($pesquisa) {
+        $produtos = VwProduto::query()
+        ->select([
+            "id",
+            "nome",
+            "precoAvista",
+            "imagem_produto",
+        ])
+        ->where("nome", "like", "%$pesquisa%")
+        ->orWhere("categoria", "like", "%$pesquisa%")
+        ->orWhere("departamento", "like", "%$pesquisa%")
+        ->orWhere("marca", "like", "%$pesquisa%")
+        ->take(5)->get()
+        ->map(function ($prod) {
+            $prod->imagemProduto = $prod->imagem_produto;
+            return $prod;
+        });
+        return response()->json($produtos);
+    }
 }
