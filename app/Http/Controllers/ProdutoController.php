@@ -159,9 +159,11 @@ class ProdutoController extends Controller
         ->orWhere("categoria", "like", "%$pesquisa%")
         ->orWhere("departamento", "like", "%$pesquisa%")
         ->orWhere("marca", "like", "%$pesquisa%")
+        ->orderBy("acessos", "desc")
         ->take(5)->get()
         ->map(function ($prod) {
-            $prod->imagemProduto = $prod->imagem_produto;
+            $prod->imagemProduto = asset("imagens/produtos/{$prod->imagem_produto}");
+            $prod->link = "/produto/{$prod->id}/{$prod->nome}";
             return $prod;
         });
         return response()->json($produtos);

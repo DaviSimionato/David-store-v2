@@ -11,18 +11,23 @@
             class="pointer-events-none w-40 ml-5">
         </a>
         <form action="/busca" method="GET" autocomplete="off"
-        class="flex align-middle text-black w-3/5 shadow-lg mr-4">
+        class="flex align-middle flex-col text-black w-3/5 shadow-lg mr-4">
         @csrf
-            <input type="text" name="b" placeholder="Busque aqui"
-            class="hidden md:block h-4 p-4 mt-1 pl-3 rounded-l outline-none w-full 
-            placeholder:text-sm text-sm inputBusca">
-            <button type="submit" 
-            class="bg-dsBlue mt-1 px-1 text-white rounded-r">
-                <span title="Pesquisar"
-                class="material-symbols-outlined flex align-middle justify-center">
-                    search
-                </span>
-            </button>
+            <div class="flex align-middle">
+                <input type="text" name="b" placeholder="Busque aqui"
+                class="hidden md:block h-4 p-4 mt-1 pl-3 rounded-l outline-none w-full 
+                placeholder:text-sm text-sm inputBusca">
+                <button type="submit" 
+                class="bg-dsBlue mt-1 px-1 text-white rounded-r">
+                    <span title="Pesquisar"
+                    class="material-symbols-outlined flex align-middle justify-center">
+                        search
+                    </span>
+                </button>
+            </div>
+            <div class="bg-white flex absolute mt-[36px] flex-col itensBusca">
+
+            </div>
         </form>
 
         @auth
