@@ -1,5 +1,5 @@
 @props(["qtdCarrinho"])
-<header class="bg-ds w-full text-white">
+<header class="bg-ds w-full text-white z-20">
     <div class="container max-w-cds py-6 flex align-middle justify-between">
         <span 
         class="material-symbols-outlined abrirMenu select-none 
@@ -25,7 +25,7 @@
                     </span>
                 </button>
             </div>
-            <div class="bg-white flex absolute mt-[36px] flex-col itensBusca">
+            <div class="bg-white flex absolute mt-[36px] flex-col itensBusca z-50">
 
             </div>
         </form>
@@ -90,3 +90,6 @@
         </div>
     </div>
 </header>
+<div class="bg-black opacity-60 w-[100vw] h-screen hover:cursor-pointer overlayPesquisa overlay
+overflow-hidden z-10 fixed hidden">
+</div>

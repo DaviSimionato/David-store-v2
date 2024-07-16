@@ -21,6 +21,10 @@ body:has(.menuLateral.flex) {
     height: 100vh;
     overflow-y: hidden;
 }
+body:has(.overlay.active) {
+    height: 100vh;
+    overflow-y: hidden;
+}
 .selecionado {
     border-color: #E8772E !important;
     background-color: #ffede2;

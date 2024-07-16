@@ -1,12 +1,16 @@
 const inputBusca = document.querySelector(".inputBusca");
 const itensBusca = document.querySelector(".itensBusca");
+const overlay = document.querySelector(".overlayPesquisa");
 
+let itensEncontrados = 0;
 let debounceTimeout;
 
 inputBusca.addEventListener("input", () => {
     let pesquisa = inputBusca.value;
     clearTimeout(debounceTimeout);
     limparItensBusca();
+    overlay.classList.replace("block", "hidden");
+    overlay.classList.remove("active");
     debounceTimeout = setTimeout(() => {
         buscarProdutosApi(pesquisa);
     }, 1800);
@@ -14,12 +18,18 @@ inputBusca.addEventListener("input", () => {
 
 inputBusca.addEventListener("focusin", ()=> {
     itensBusca.style.display = "flex";
+    if(itensEncontrados > 0) {
+        overlay.classList.replace("hidden", "block");
+        overlay.classList.add("active");
+    }
 });
 
 inputBusca.addEventListener("focusout", ()=> {
     setTimeout(()=> {
         itensBusca.style.display = "none";
     },100);
+    overlay.classList.replace("block", "hidden");
+    overlay.classList.remove("active");
 });
 
 function buscarProdutosApi(pesquisa) {
@@ -34,6 +44,9 @@ function buscarProdutosApi(pesquisa) {
         inputBusca.focus();
         itensBusca.style.width = inputBusca.getClientRects()[0].width + "px";
         limparItensBusca();
+        itensEncontrados = data.length;
+        overlay.classList.replace("hidden", "block");
+        overlay.classList.add("active");
         if(data.length == 0) {
             itensBusca.innerHTML += `
                 <div class="w-full p-2 px-4 flex justify-center items-center">
@@ -73,6 +86,7 @@ function limparItensBusca() {
         produtosAmostra.forEach((prod)=> {
             prod.remove();
         });
+        itensEncontrados = 0;
     }
 }
 
